@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">COPTAS</string>
-    <string name="pengaturan">Pengaturan\n</string>
+    <string name="setting">Setting</string>
+    <string name="scan_gambar">Scan Gambar</string>
+    <string name="menampilkan_diagnosis">Menampilkan Diagnosis\n</string>
+    <string name="cara_pengobatan">Cara Pengobatan</string>
+    <string name="ambil_gambar">Ambil Gambar</string>
 </resources>
