@@ -13,6 +13,12 @@
         android:theme="@style/Theme.COPTAS"
         tools:targetApi="31">
         <activity
+            android:name=".view.HistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ArtikelActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>
