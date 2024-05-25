@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="Halaman Utama"
+        android:id="@+id/home"
+        android:icon="@drawable/ic_home"/>
+    <item
+        android:title="Artikel"
+        android:id="@+id/article"
+        android:icon="@drawable/ic_article"/>
+    <item
+        android:title="Riwayat Scan"
+        android:id="@+id/history"
+        android:icon="@drawable/ic_history"/>
+</menu>
