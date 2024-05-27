@@ -5,4 +5,7 @@
     <string name="menampilkan_diagnosis">Menampilkan Diagnosis\n</string>
     <string name="cara_pengobatan">Cara Pengobatan</string>
     <string name="ambil_gambar">Ambil Gambar</string>
+    <string name="scan_image">image\n</string>
+    <string name="hp_image">hp image</string>
+    <string name="diagnosis_image">diagnosis image</string>
 </resources>
