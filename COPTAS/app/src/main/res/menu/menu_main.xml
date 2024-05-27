@@ -10,7 +10,7 @@
             <item
                 android:id="@+id/Pengaturan"
                 android:title="@string/pengaturan"
-                android:titleTextColor="@color/black" />
+                android:titleTextColor="@color/black"/>
         </menu>
     </item>
 
