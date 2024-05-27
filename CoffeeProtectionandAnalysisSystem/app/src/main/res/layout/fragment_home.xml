@@ -145,7 +145,6 @@
             android:fontFamily="@font/mirza_reguler"
             android:text="@string/scan_gambar"
             android:textAlignment="center"
-            android:textColor="@color/black"
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
