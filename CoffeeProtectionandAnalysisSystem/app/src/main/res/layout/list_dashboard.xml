@@ -16,7 +16,7 @@
         android:padding="16dp">
 
         <ImageView
-            android:id="@+id/image_history"
+            android:id="@+id/image_dashboard"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_alignParentStart="true"
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@id/image_history"
+            android:layout_toEndOf="@id/image_dashboard"
             android:background="@drawable/rounded_rectangle"
             android:ellipsize="end"
             android:fontFamily="@font/mirza_semibold"
@@ -43,11 +43,11 @@
             tools:text="Judul History" />
 
         <TextView
-            android:id="@+id/description_history"
+            android:id="@+id/description_dashboard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/title_artikel"
-            android:layout_toEndOf="@id/image_history"
+            android:layout_toEndOf="@id/image_dashboard"
             android:ellipsize="end"
             android:maxLines="2"
             android:padding="8dp"
@@ -59,10 +59,10 @@
             android:id="@+id/date_history"
             android:layout_width="124dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/description_history"
+            android:layout_below="@id/description_dashboard"
             android:layout_marginStart="123dp"
             android:layout_marginTop="0dp"
-            android:layout_toEndOf="@id/image_history"
+            android:layout_toEndOf="@id/image_dashboard"
             android:background="@drawable/title_background"
             android:padding="8dp"
             android:gravity="center"
