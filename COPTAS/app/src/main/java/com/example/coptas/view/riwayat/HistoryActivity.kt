@@ -1,4 +1,4 @@
-package com.example.coptas.view
+package com.example.coptas.view.riwayat
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
