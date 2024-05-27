@@ -22,18 +22,22 @@ class HistoryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val notificationsViewModel =
-            ViewModelProvider(this).get(HistoryViewModel::class.java)
+        val historyViewModel = ViewModelProvider(this).get(HistoryViewModel::class.java)
 
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textNotifications
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        // Mengamati data dari view model dan melakukan sesuatu dengan datanya
+        historyViewModel.text.observe(viewLifecycleOwner) {
+            // Di sini, Anda dapat melakukan sesuatu dengan data yang diamati,
+            // misalnya, menetapkannya ke widget lain di layout, melakukan operasi,
+            // atau menampilkan data di logcat.
         }
+
         return root
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

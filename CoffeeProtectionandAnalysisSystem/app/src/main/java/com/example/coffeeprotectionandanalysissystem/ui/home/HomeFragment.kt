@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.coffeeprotectionandanalysissystem.databinding.FragmentHomeBinding
+import com.example.coffeeprotectionandanalysissystem.ui.history.HistoryViewModel
 
 class HomeFragment : Fragment() {
 
@@ -22,21 +23,16 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-
+        val HomeViewModel = ViewModelProvider(this).get(HistoryViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        HomeViewModel.text.observe(viewLifecycleOwner) {
+            // Di sini, Anda dapat melakukan sesuatu dengan data yang diamati,
+            // misalnya, menetapkannya ke widget lain di layout, melakukan operasi,
+            // atau menampilkan data di logcat.
         }
-        return root
-    }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        return root
     }
 }
