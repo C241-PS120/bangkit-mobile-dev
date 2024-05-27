@@ -11,6 +11,8 @@
     <string name="halaman_utama">Halaman Utama</string>
     <string name="artikel">Artikel</string>
     <string name="riwayat_scan">Riwayat Scan</string>
+    <string name="pengaturan">Pengaturan</string>
+    <string name="settings">Settings</string>
 
 
 </resources>
