@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">Coptas</string>
-    <string name="title_home">Home</string>
+    <string name="title_home">Halaman Utama</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="title_article">Artikel</string>
-    <string name="title_history">history\n</string>
+    <string name="title_history">Riwayat Scan\n</string>
     <string name="pengaturan">pengaturan</string>
 </resources>
