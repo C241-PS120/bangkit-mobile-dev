@@ -32,6 +32,8 @@ class HistoryActivity : AppCompatActivity() {
         bottomNavigationView.setOnItemSelectedListener { item ->
             handleNavigation(item)
         }
+
+        // Tetapkan item yang dipilih saat ini saat pertama kali membuat aktivitas
         bottomNavigationView.selectedItemId = R.id.history
     }
 
@@ -41,11 +43,20 @@ class HistoryActivity : AppCompatActivity() {
         return true
     }
 
+    override fun onResume() {
+        super.onResume()
+        // Set the selected item in BottomNavigationView to match the current activity
+        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView_history)
+        bottomNavigationView.selectedItemId = R.id.history
+    }
+
     private fun handleNavigation(item: MenuItem): Boolean {
         val intent = when (item.itemId) {
             R.id.home -> Intent(this, MainActivity::class.java)
             R.id.article -> Intent(this, ArtikelActivity::class.java)
-            R.id.history -> return true
+            R.id.history -> {
+                return true
+            }
             else -> return false
         }
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this)

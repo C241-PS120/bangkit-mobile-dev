@@ -33,6 +33,7 @@ class ArtikelActivity : AppCompatActivity() {
             handleNavigation(item)
         }
 
+        // Tetapkan item yang dipilih saat ini saat pertama kali membuat aktivitas
         bottomNavigationView.selectedItemId = R.id.article
     }
 
@@ -40,6 +41,13 @@ class ArtikelActivity : AppCompatActivity() {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.menu_main, menu)
         return true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Set the selected item in BottomNavigationView to match the current activity
+        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+        bottomNavigationView.selectedItemId = R.id.article
     }
 
     private fun handleNavigation(item: MenuItem): Boolean {

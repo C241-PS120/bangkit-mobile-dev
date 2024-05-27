@@ -10,16 +10,18 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/topbar"
         android:layout_width="0dp"
-        android:layout_height="85dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:padding="16dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="20dp"
         android:gravity="center_vertical"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:title="@string/app_name"
-        app:titleTextColor="@android:color/black" />
+        app:titleTextColor="@color/green"
+        app:titleMarginTop="20dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_history"

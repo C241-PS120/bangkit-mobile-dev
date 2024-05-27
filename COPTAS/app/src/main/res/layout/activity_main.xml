@@ -9,22 +9,26 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/topbar"
         android:layout_width="0dp"
-        android:layout_height="85dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:padding="16dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="20dp"
         android:gravity="center_vertical"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:title="@string/app_name"/>
+        app:title="@string/app_name"
+        app:titleTextColor="@color/green"
+        app:titleMarginTop="20dp" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/weather_location_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="132dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/rounded_rectangle"
         android:padding="16dp"
@@ -97,8 +101,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/weather_desc" />
-
-        <!-- Adjust the color as needed -->
+        
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -128,7 +131,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topbar"
         app:layout_constraintVertical_bias="0.574">
-
         <ImageView
             android:id="@+id/scan"
             android:layout_width="wrap_content"
@@ -243,19 +245,6 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <ImageButton
-        android:id="@+id/setting"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:background="@null"
-        android:contentDescription="@string/setting"
-        android:padding="8dp"
-        android:src="@drawable/setting"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/topbar" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
