@@ -37,19 +37,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="hari ini, 12 April 2024"
-            android:fontFamily="@font/MirzaBold"
+            android:fontFamily="@font/mirza_bold"
             android:textColor="@android:color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Weather Description -->
+
         <TextView
             android:id="@+id/weather_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:fontFamily="@font/MirzaRegular"
+            android:fontFamily="@font/mirza_reguler"
             android:text="Berawan - 26°C"
             android:textColor="@android:color/black"
             android:textSize="16sp"
@@ -63,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:fontFamily="@font/MirzaBold"
+            android:fontFamily="@font/mirza_bold"
             android:text="26°C"
             android:textColor="@android:color/black"
             android:textSize="38sp"
@@ -143,7 +143,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="37dp"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/MirzaRegular"
+            android:fontFamily="@font/mirza_reguler"
             android:text="@string/scan_gambar"
             android:textSize="13sp"
             android:textAlignment="center"
@@ -169,7 +169,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="147dp"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/MirzaRegular"
+            android:fontFamily="@font/mirza_reguler"
             android:text="@string/menampilkan_diagnosis"
             android:textSize="13sp"
             android:textAlignment="center"
@@ -183,7 +183,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="256dp"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/MirzaRegular"
+            android:fontFamily="@font/mirza_reguler"
             android:text="@string/cara_pengobatan"
             android:textAlignment="center"
             android:textSize="13sp"
@@ -210,7 +210,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="24dp"
-            android:text="@string/ambil_gambar"/>
+            android:text="@string/ambil_gambar"
+            android:backgroundTint="@color/green"/>
 
 
 
