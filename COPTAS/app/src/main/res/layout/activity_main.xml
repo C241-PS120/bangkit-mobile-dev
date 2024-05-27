@@ -17,14 +17,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:title="@string/app_name" />
+        app:title="@string/app_name"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/weather_location_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/rounded_rectangle"
         android:padding="16dp"
@@ -38,8 +38,8 @@
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="hari ini, 12 April 2024"
             android:fontFamily="@font/mirza_bold"
+            android:text="hari ini, 12 April 2024"
             android:textColor="@android:color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -124,18 +124,41 @@
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/bottombar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topbar">
+        app:layout_constraintTop_toBottomOf="@id/topbar"
+        app:layout_constraintVertical_bias="0.574">
 
         <ImageView
             android:id="@+id/scan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/scan_image"
+            android:layout_marginTop="8dp"
             android:src="@drawable/scan"
             app:layout_constraintBottom_toTopOf="@id/text_scan"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.054"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/arrow_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="116dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/arrow_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="236dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/arrow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -159,7 +182,7 @@
             android:id="@+id/hp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="148dp"
+            android:layout_marginStart="155dp"
             android:layout_marginTop="8dp"
             android:contentDescription="@string/hp_image"
             android:src="@drawable/hp"
@@ -170,8 +193,8 @@
             android:id="@+id/text_hp"
             android:layout_width="73dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="135dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="142dp"
+            android:layout_marginTop="12dp"
             android:fontFamily="@font/mirza_reguler"
             android:text="@string/menampilkan_diagnosis"
             android:textAlignment="center"
@@ -184,7 +207,7 @@
             android:id="@+id/text_diagnosis"
             android:layout_width="73dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="252dp"
+            android:layout_marginStart="260dp"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/mirza_reguler"
             android:text="@string/cara_pengobatan"
@@ -197,7 +220,7 @@
             android:id="@+id/iv_diagnosis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="264dp"
+            android:layout_marginStart="276dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/mirza_reguler"
             android:src="@drawable/ic_hp2"
