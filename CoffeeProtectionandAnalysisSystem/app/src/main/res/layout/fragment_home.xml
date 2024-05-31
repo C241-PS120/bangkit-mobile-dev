@@ -206,6 +206,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/ambilgambar"
             android:layout_marginTop="24dp"
             android:backgroundTint="@color/green"
             android:text="@string/ambil_gambar"
