@@ -23,6 +23,9 @@
         android:theme="@style/Theme.COPTAS"
         tools:targetApi="31">
         <activity
+            android:name=".view.result.ResultActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.detail.DetailHistoryActivity"
             android:exported="false" />
         <activity
