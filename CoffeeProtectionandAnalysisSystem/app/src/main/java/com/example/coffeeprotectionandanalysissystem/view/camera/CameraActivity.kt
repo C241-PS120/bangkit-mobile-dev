@@ -23,6 +23,7 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import com.example.coffeeprotectionandanalysissystem.databinding.ActivityCameraBinding
+import com.yalantis.ucrop.UCrop
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -125,22 +126,49 @@ class CameraActivity : AppCompatActivity() {
             ContextCompat.getMainExecutor(this),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                    val photoUri = output.savedUri
-                    val intent = Intent(this@CameraActivity, UploadActivity::class.java)
-                    intent.putExtra(EXTRA_CAMERAX_IMAGE, photoUri.toString())
-                    startActivity(intent)
+                    val photoUri = Uri.fromFile(photoFile)
+                    startCrop(photoUri)
                 }
 
                 override fun onError(exc: ImageCaptureException) {
                     Toast.makeText(
                         this@CameraActivity,
-                        "Gagal mengambil gambar.",
+                        "Failed to take picture.",
                         Toast.LENGTH_SHORT
                     ).show()
                     Log.e(TAG, "onError: ${exc.message}")
                 }
             }
         )
+    }
+
+    private fun startCrop(uri: Uri) {
+        val destinationUri = Uri.fromFile(File(cacheDir, "croppedImage.jpg"))
+        val options = UCrop.Options().apply {
+            setCompressionQuality(100)
+            setFreeStyleCropEnabled(true)
+        }
+        UCrop.of(uri, destinationUri)
+            .withOptions(options)
+            .withAspectRatio(1f, 1f)
+            .start(this)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
+            val resultUri = UCrop.getOutput(data!!)
+            resultUri?.let {
+                val intent = Intent(this, UploadActivity::class.java).apply {
+                    putExtra(EXTRA_CAMERAX_IMAGE, it.toString())
+                }
+                startActivity(intent)
+            }
+        } else if (resultCode == UCrop.RESULT_ERROR) {
+            val cropError = UCrop.getError(data!!)
+            // Handle the error
+            Toast.makeText(this, "Cropping failed: ${cropError?.message}", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun startGallery() {

@@ -12,6 +12,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.coffeeprotectionandanalysissystem.databinding.ActivityUploadBinding
+import com.example.coffeeprotectionandanalysissystem.response.PredictionResponse
+import com.example.coffeeprotectionandanalysissystem.service.ApiConfig
+import com.example.coffeeprotectionandanalysissystem.view.camera.CameraActivity
+import com.example.coffeeprotectionandanalysissystem.view.result.ResultActivity
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -49,8 +59,32 @@ class UploadActivity : AppCompatActivity() {
     private fun uploadImage() {
         photoUri?.let {
             val file = uriToFile(it, this)
-            // Implementasikan logika untuk mengupload file di sini.
-            showToast("File path: ${file.absolutePath}")
+            val requestFile = RequestBody.create("image/jpeg".toMediaTypeOrNull(), file)
+            val body = MultipartBody.Part.createFormData("photo", file.name, requestFile)
+
+            showLoading(true)
+            ApiConfig.apiService.getPrediction(body).enqueue(object : Callback<PredictionResponse> {
+                override fun onResponse(call: Call<PredictionResponse>, response: Response<PredictionResponse>) {
+                    showLoading(false)
+                    if (response.isSuccessful) {
+                        response.body()?.let { predictionResponse ->
+                            val intent = Intent(this@UploadActivity, ResultActivity::class.java).apply {
+                                putExtra("imageUrl", predictionResponse.data?.imageUrl)
+                                putExtra("label", predictionResponse.data?.label)
+                                putExtra("suggestion", predictionResponse.data?.suggestion)
+                            }
+                            startActivity(intent)
+                        }
+                    } else {
+                        showToast("Failed to upload image")
+                    }
+                }
+
+                override fun onFailure(call: Call<PredictionResponse>, t: Throwable) {
+                    showLoading(false)
+                    showToast("Error: ${t.message}")
+                }
+            })
         } ?: run {
             showToast("No image to upload")
         }
@@ -95,6 +129,7 @@ class UploadActivity : AppCompatActivity() {
     }
 
     companion object {
+        const val EXTRA_CAMERAX_IMAGE: String = "extra_camerax_image"
         private const val DATE_FORMAT = "dd-MMM-yyyy"
     }
 }
