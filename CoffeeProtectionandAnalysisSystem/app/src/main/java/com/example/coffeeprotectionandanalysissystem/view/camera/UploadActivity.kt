@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide
 import com.example.coffeeprotectionandanalysissystem.databinding.ActivityUploadBinding
 import com.example.coffeeprotectionandanalysissystem.response.PredictionResponse
 import com.example.coffeeprotectionandanalysissystem.service.ApiConfig
-import com.example.coffeeprotectionandanalysissystem.view.camera.CameraActivity
 import com.example.coffeeprotectionandanalysissystem.view.result.ResultActivity
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -71,6 +70,7 @@ class UploadActivity : AppCompatActivity() {
                             val intent = Intent(this@UploadActivity, ResultActivity::class.java).apply {
                                 putExtra("imageUrl", predictionResponse.data?.imageUrl)
                                 putExtra("label", predictionResponse.data?.label)
+                                putExtra("id", predictionResponse.data?.id)
                                 putExtra("suggestion", predictionResponse.data?.suggestion)
                             }
                             startActivity(intent)
@@ -129,7 +129,6 @@ class UploadActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_CAMERAX_IMAGE: String = "extra_camerax_image"
         private const val DATE_FORMAT = "dd-MMM-yyyy"
     }
 }

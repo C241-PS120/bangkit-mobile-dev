@@ -24,7 +24,7 @@ class ArticleFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val ArticleViewModel = ViewModelProvider(this).get(HistoryViewModel::class.java)
+        val ArticleViewModel = ViewModelProvider(this).get(ArticleViewModel::class.java)
 
         _binding = FragmentArticleBinding.inflate(inflater, container, false)
         val root: View = binding.root

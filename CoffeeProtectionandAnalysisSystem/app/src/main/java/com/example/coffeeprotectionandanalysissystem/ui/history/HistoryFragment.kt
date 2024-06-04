@@ -4,40 +4,65 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.coffeeprotectionandanalysissystem.adapter.HistoryAdapter
 import com.example.coffeeprotectionandanalysissystem.databinding.FragmentHistoryBinding
+import com.example.coffeeprotectionandanalysissystem.database.AppDatabase
+import com.example.coffeeprotectionandanalysissystem.database.History
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class HistoryFragment : Fragment() {
-
     private var _binding: FragmentHistoryBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
+    private val viewModel: HistoryViewModel by viewModels()
+    private lateinit var adapter: HistoryAdapter
+    private lateinit var db: AppDatabase
+
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val historyViewModel = ViewModelProvider(this).get(HistoryViewModel::class.java)
-
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        // Mengamati data dari view model dan melakukan sesuatu dengan datanya
-        historyViewModel.text.observe(viewLifecycleOwner) {
-            // Di sini, Anda dapat melakukan sesuatu dengan data yang diamati,
-            // misalnya, menetapkannya ke widget lain di layout, melakukan operasi,
-            // atau menampilkan data di logcat.
-        }
-
-        return root
+        return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        db = AppDatabase.getDatabase(requireContext())
+        setupRecyclerView()
+
+        viewModel.historyList.observe(viewLifecycleOwner) { historyList ->
+            adapter.updateData(historyList)
+        }
+
+        loadHistory()
+    }
+
+    private fun setupRecyclerView() {
+        adapter = HistoryAdapter(mutableListOf(), this::deleteHistory)
+        binding.rvHistory.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvHistory.adapter = adapter
+    }
+
+    private fun loadHistory() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val historyList = db.historyDao().getAllHistory()
+            viewModel.setHistoryList(historyList)
+        }
+    }
+
+    private fun deleteHistory(history: History) {
+        CoroutineScope(Dispatchers.IO).launch {
+            db.historyDao().removeHistory(history.id)
+            loadHistory()
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

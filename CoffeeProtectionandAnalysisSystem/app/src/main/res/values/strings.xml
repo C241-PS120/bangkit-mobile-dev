@@ -11,4 +11,6 @@
     <string name="ambil_gambar">Ambil Gambar</string>
     <string name="search">Pencarian</string>
     <string name="hasil_analisis">Hasil Analisis</string>
+    <string name="save">Simpan\n</string>
+    <string name="delete">Hapus</string>
 </resources>
