@@ -1,12 +1,8 @@
 package com.example.coffeeprotectionandanalysissystem.view.detail
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.coffeeprotectionandanalysissystem.R
-import com.example.coffeeprotectionandanalysissystem.databinding.ActivityDetailArtikelBinding
+import com.bumptech.glide.Glide
 import com.example.coffeeprotectionandanalysissystem.databinding.ActivityDetailHistoryBinding
 
 class DetailHistoryActivity : AppCompatActivity() {
@@ -14,13 +10,19 @@ class DetailHistoryActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         binding = ActivityDetailHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        val imageUrl = intent.getStringExtra("imageUrl")
+        val label = intent.getStringExtra("label")
+        val suggestion = intent.getStringExtra("suggestion")
+
+        imageUrl?.let {
+            Glide.with(this)
+                .load(it)
+                .into(binding.ivLeaf)
         }
+        binding.label.text = label
+        binding.suggestion.text = suggestion
     }
 }

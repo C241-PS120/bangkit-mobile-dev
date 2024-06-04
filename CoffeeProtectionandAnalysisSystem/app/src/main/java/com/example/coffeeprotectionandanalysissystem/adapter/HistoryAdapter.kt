@@ -9,12 +9,13 @@ import com.example.coffeeprotectionandanalysissystem.databinding.ActivityListHis
 
 class HistoryAdapter(
     private val historyList: MutableList<History>,
-    private val onDeleteClick: (History) -> Unit
+    private val onDeleteClick: (History) -> Unit,
+    private val onItemClicked: (History) -> Unit
 ) : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
 
     inner class HistoryViewHolder(private val binding: ActivityListHistoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(history: History) {
+        fun bind(history: History, onItemClicked: (History) -> Unit){
             binding.titleArtikel.text = history.label
             binding.descriptionDashboard.text = history.suggestion
             binding.dateHistory.text = history.date
@@ -25,6 +26,9 @@ class HistoryAdapter(
             binding.deleteButton.setOnClickListener {
                 onDeleteClick(history)
             }
+            binding.root.setOnClickListener {
+                onItemClicked(history)
+            }
         }
     }
 
@@ -34,7 +38,8 @@ class HistoryAdapter(
     }
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
-        holder.bind(historyList[position])
+        val history = historyList[position]
+        holder.bind(history, onItemClicked)
     }
 
     override fun getItemCount(): Int = historyList.size

@@ -235,7 +235,6 @@ class CameraActivity : AppCompatActivity() {
     }
 
 
-    // Tambahkan metode lain yang dibutuhkan, misalnya untuk memulai kamera, menangkap gambar, dll.
 
     companion object {
         private const val TAG = "CameraActivity"

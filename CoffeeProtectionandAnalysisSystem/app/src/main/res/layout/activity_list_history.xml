@@ -11,7 +11,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:background="@drawable/rounded_rectangle"
+        android:elevation="4dp">
 
         <ImageView
             android:id="@+id/image_dashboard"

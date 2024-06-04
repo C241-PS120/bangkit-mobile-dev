@@ -1,5 +1,6 @@
 package com.example.coffeeprotectionandanalysissystem.ui.history
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import com.example.coffeeprotectionandanalysissystem.adapter.HistoryAdapter
 import com.example.coffeeprotectionandanalysissystem.databinding.FragmentHistoryBinding
 import com.example.coffeeprotectionandanalysissystem.database.AppDatabase
 import com.example.coffeeprotectionandanalysissystem.database.History
+import com.example.coffeeprotectionandanalysissystem.view.detail.DetailHistoryActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -45,9 +47,22 @@ class HistoryFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = HistoryAdapter(mutableListOf(), this::deleteHistory)
+        adapter = HistoryAdapter(
+            mutableListOf(),
+            this::deleteHistory,
+            this::onHistoryItemClick
+        )
         binding.rvHistory.layoutManager = LinearLayoutManager(requireContext())
         binding.rvHistory.adapter = adapter
+    }
+
+    private fun onHistoryItemClick(history: History) {
+        val intent = Intent(requireContext(), DetailHistoryActivity::class.java).apply {
+            putExtra("imageUrl", history.imageId)
+            putExtra("label", history.label)
+            putExtra("suggestion", history.suggestion)
+        }
+        startActivity(intent)
     }
 
     private fun loadHistory() {
