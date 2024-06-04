@@ -45,6 +45,9 @@
             android:name=".view.camera.UploadActivity"
             android:exported="false" />
         <activity
+            android:name=".view.settings.SettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.main.MainActivity"
             android:exported="true">
             <intent-filter>

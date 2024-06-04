@@ -15,10 +15,9 @@
         app:showAsAction="always">
         <menu>
             <item
-                android:id="@+id/Pengaturan"
+                android:id="@+id/action_sub_settings"
                 android:title="@string/pengaturan"
                 android:titleTextColor="@color/black" />
         </menu>
     </item>
-
 </menu>

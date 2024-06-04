@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -49,7 +50,7 @@ class HistoryFragment : Fragment() {
     private fun setupRecyclerView() {
         adapter = HistoryAdapter(
             mutableListOf(),
-            this::deleteHistory,
+            this::showDeleteConfirmationDialog,
             this::onHistoryItemClick
         )
         binding.rvHistory.layoutManager = LinearLayoutManager(requireContext())
@@ -70,6 +71,17 @@ class HistoryFragment : Fragment() {
             val historyList = db.historyDao().getAllHistory()
             viewModel.setHistoryList(historyList)
         }
+    }
+
+    private fun showDeleteConfirmationDialog(history: History) {
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle("Delete Confirmation")
+            setMessage("Are you sure you want to delete this history item?")
+            setPositiveButton("Yes") { _, _ ->
+                deleteHistory(history)
+            }
+            setNegativeButton("No", null)
+        }.show()
     }
 
     private fun deleteHistory(history: History) {

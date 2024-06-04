@@ -34,8 +34,6 @@ class ResultActivity : AppCompatActivity() {
         }
         binding.label.text = label
         binding.suggestion.text = suggestion
-
-        // Inisialisasi tombol simpan
         binding.saveButton.setOnClickListener {
             val currentDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
             saveToDatabase(imageUrl, label, suggestion, currentDate)
@@ -53,7 +51,7 @@ class ResultActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 AppDatabase.getDatabase(this@ResultActivity).historyDao().addHistory(history)
                 runOnUiThread {
-                    Toast.makeText(this@ResultActivity, "Data saved successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ResultActivity, "Riwayat Berhasil Disimpan!", Toast.LENGTH_SHORT).show()
                     navigateToMainActivity()
                 }
             }
