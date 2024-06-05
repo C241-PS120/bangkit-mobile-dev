@@ -18,6 +18,9 @@ import com.example.coffeeprotectionandanalysissystem.view.result.ResultActivity
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import org.json.JSONException
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -67,16 +70,23 @@ class UploadActivity : AppCompatActivity() {
                     showLoading(false)
                     if (response.isSuccessful) {
                         response.body()?.let { predictionResponse ->
-                            val intent = Intent(this@UploadActivity, ResultActivity::class.java).apply {
-                                putExtra("imageUrl", predictionResponse.data?.imageUrl)
-                                putExtra("label", predictionResponse.data?.label)
-                                putExtra("id", predictionResponse.data?.id)
-                                putExtra("suggestion", predictionResponse.data?.suggestion)
+                            if (predictionResponse.status == "error") {
+                                showToast(predictionResponse.message ?: "Failed to recognize image")
+                            } else {
+                                val intent = Intent(this@UploadActivity, ResultActivity::class.java).apply {
+                                    putExtra("imageUrl", predictionResponse.data?.imageUrl)
+                                    putExtra("label", predictionResponse.data?.label)
+                                    putExtra("id", predictionResponse.data?.id)
+                                    putExtra("suggestion", predictionResponse.data?.suggestion)
+                                }
+                                startActivity(intent)
                             }
-                            startActivity(intent)
                         }
                     } else {
-                        showToast("Failed to upload image")
+                        // Parse the error response body to extract the message
+                        val errorResponse = response.errorBody()?.string()
+                        val errorMessage = extractErrorMessage(errorResponse)
+                        showToast(errorMessage)
                     }
                 }
 
@@ -88,6 +98,18 @@ class UploadActivity : AppCompatActivity() {
         } ?: run {
             showToast("No image to upload")
         }
+    }
+
+    private fun extractErrorMessage(errorBody: String?): String {
+        errorBody?.let {
+            try {
+                val jsonObject = JSONObject(it)
+                return jsonObject.getString("message")
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+        }
+        return "Failed to recognize image"
     }
 
     private fun showToast(message: String) {

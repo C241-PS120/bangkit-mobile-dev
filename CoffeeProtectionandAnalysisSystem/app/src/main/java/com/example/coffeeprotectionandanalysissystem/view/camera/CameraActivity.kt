@@ -127,6 +127,7 @@ class CameraActivity : AppCompatActivity() {
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     val photoUri = Uri.fromFile(photoFile)
+                    currentImageUri = photoUri  // Update the currentImageUri with the new photo URI
                     startCrop(photoUri)
                 }
 
@@ -143,7 +144,7 @@ class CameraActivity : AppCompatActivity() {
     }
 
     private fun startCrop(uri: Uri) {
-        val destinationUri = Uri.fromFile(File(cacheDir, "croppedImage.jpg"))
+        val destinationUri = Uri.fromFile(File(cacheDir, "croppedImage${System.currentTimeMillis()}.jpg"))
         val options = UCrop.Options().apply {
             setCompressionQuality(100)
             setFreeStyleCropEnabled(true)
@@ -180,9 +181,7 @@ class CameraActivity : AppCompatActivity() {
     ) { uri: Uri? ->
         if (uri != null) {
             currentImageUri = uri
-            val intent = Intent(this@CameraActivity, UploadActivity::class.java)
-            intent.putExtra(EXTRA_CAMERAX_IMAGE, uri.toString())
-            startActivity(intent)
+            startCrop(uri)
         } else {
             Log.d("Photo Picker", "No media selected")
         }
