@@ -4,42 +4,72 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.coffeeprotectionandanalysissystem.adapter.ArticleAdapter
 import com.example.coffeeprotectionandanalysissystem.databinding.FragmentArticleBinding
-import com.example.coffeeprotectionandanalysissystem.databinding.FragmentHistoryBinding
-import com.example.coffeeprotectionandanalysissystem.ui.history.HistoryViewModel
 
 class ArticleFragment : Fragment() {
 
     private var _binding: FragmentArticleBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+    private lateinit var articleAdapter: ArticleAdapter
+    private lateinit var articleViewModel: ArticleViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val ArticleViewModel = ViewModelProvider(this).get(ArticleViewModel::class.java)
-
+        articleViewModel = ViewModelProvider(this).get(ArticleViewModel::class.java)
         _binding = FragmentArticleBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Mengamati data dari view model dan melakukan sesuatu dengan datanya
-        ArticleViewModel.text.observe(viewLifecycleOwner) {
-            // Di sini, Anda dapat melakukan sesuatu dengan data yang diamati,
-            // misalnya, menetapkannya ke widget lain di layout, melakukan operasi,
-            // atau menampilkan data di logcat.
-        }
+        setupRecyclerView()
+        setupSearchView()
 
         return root
     }
+
+    override fun onResume() {
+        super.onResume()
+        loadArticles()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setupRecyclerView() {
+        articleAdapter = ArticleAdapter()
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = articleAdapter
+        }
+    }
+
+    private fun setupSearchView() {
+        binding.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                articleAdapter.filter.filter(newText)
+                return true
+            }
+        })
+    }
+
+    private fun loadArticles() {
+        articleViewModel.articles.observe(viewLifecycleOwner) { articles ->
+            articleAdapter.setArticles(articles)
+        }
+
+        articleViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
     }
 }
