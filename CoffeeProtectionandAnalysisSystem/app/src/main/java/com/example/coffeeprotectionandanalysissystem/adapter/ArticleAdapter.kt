@@ -60,7 +60,7 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>(),
                 .into(binding.image)
             binding.content.text = article.content
             binding.author.text = article.category
-            binding.publishedAt.text = article.updatedAt
+            binding.publishedAt.text = article.createdAt
         }
     }
 
