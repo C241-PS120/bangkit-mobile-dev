@@ -8,6 +8,8 @@ import com.example.coffeeprotectionandanalysissystem.response.DataItem
 import android.widget.Filter
 import android.widget.Filterable
 import com.bumptech.glide.Glide
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>(), Filterable {
 
@@ -60,8 +62,25 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>(),
                 .into(binding.image)
             binding.content.text = article.content
             binding.author.text = article.category
-            binding.publishedAt.text = article.createdAt
+            binding.publishedAt.text = formatDate(article.createdAt)
         }
+
+        private fun formatDate(dateString: String?): String {
+            if (dateString.isNullOrEmpty()) {
+                return ""
+            }
+
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+            val outputFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+
+            val date = inputFormat.parse(dateString)
+            return if (date != null) {
+                outputFormat.format(date)
+            } else {
+                ""
+            }
+        }
+
     }
 
 }
