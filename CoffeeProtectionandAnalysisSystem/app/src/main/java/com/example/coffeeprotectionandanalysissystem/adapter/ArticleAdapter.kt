@@ -1,5 +1,6 @@
 package com.example.coffeeprotectionandanalysissystem.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,6 +9,7 @@ import com.example.coffeeprotectionandanalysissystem.response.DataItem
 import android.widget.Filter
 import android.widget.Filterable
 import com.bumptech.glide.Glide
+import com.example.coffeeprotectionandanalysissystem.view.detail.DetailArtikelActivity
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -63,6 +65,18 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>(),
             binding.content.text = article.content
             binding.author.text = article.category
             binding.publishedAt.text = formatDate(article.createdAt)
+
+            binding.root.setOnClickListener {
+                val context = binding.root.context
+                val intent = Intent(context, DetailArtikelActivity::class.java).apply {
+                    putExtra("title", article.title)
+                    putExtra("imageUrl", article.imageUrl)
+                    putExtra("content", article.content)
+                    putExtra("author", article.category)
+                    putExtra("createdAt", article.createdAt)
+                }
+                context.startActivity(intent)
+            }
         }
 
         private fun formatDate(dateString: String?): String {

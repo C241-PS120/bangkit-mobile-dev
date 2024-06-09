@@ -10,6 +10,8 @@ import java.util.concurrent.TimeUnit
 object ApiConfig {
     private const val BASE_URL = "https://model-service-dummy-ldfuyzfodq-et.a.run.app/api/v1/"
     private const val BASE_URL_ARTICLE = "https://article-service-ldfuyzfodq-et.a.run.app/api/v1/"
+    private const val BASE_URL_WEATHER = "http://api.weatherapi.com/v1/"
+
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
@@ -34,6 +36,13 @@ object ApiConfig {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
+    private val retrofitWeather: Retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL_WEATHER)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
     val apiService: ApiService = retrofit.create(ApiService::class.java)
     val articleService: ApiService = retrofitArticle.create(ApiService::class.java)
+    val weatherService: ApiService = retrofitWeather.create(ApiService::class.java)
 }
