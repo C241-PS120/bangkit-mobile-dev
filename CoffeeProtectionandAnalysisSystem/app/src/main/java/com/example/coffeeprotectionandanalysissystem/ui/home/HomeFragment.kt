@@ -6,6 +6,8 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +30,15 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 class HomeFragment : Fragment() {
+
+    private val updateIntervalMillis: Long = 60000 // Update every 60 seconds
+    private val handler = Handler(Looper.getMainLooper())
+    private val updateRunnable = object : Runnable {
+        override fun run() {
+            getLastLocation()
+            handler.postDelayed(this, updateIntervalMillis)
+        }
+    }
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -56,7 +67,6 @@ class HomeFragment : Fragment() {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
-        getLastLocation()
 
         viewModel.weatherResponse.removeObservers(viewLifecycleOwner)
         viewModel.weatherResponse.observe(viewLifecycleOwner) { weatherResponse ->
@@ -105,7 +115,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun updateWeatherUI(weatherResponse: WeatherResponse) {
-        // Safely access current, condition, and location properties
+
         val current = weatherResponse.current
         val condition = current?.condition
         val location = weatherResponse.location
@@ -119,7 +129,10 @@ class HomeFragment : Fragment() {
 
         binding.date.text = formattedDate ?: "N/A"
         binding.weatherDesc.text = condition?.text ?: "N/A"
-        binding.weather.text = "${current?.tempC ?: "N/A"}°C"
+
+        val roundedTempC = current?.tempC?.let { Math.round(it as Double) }
+        binding.weather.text = "${roundedTempC ?: "N/A"}°C"
+
         binding.location.text = locationText
     }
 
@@ -138,6 +151,19 @@ class HomeFragment : Fragment() {
         ) {
             getLastLocation()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getLastLocation()
+        handler.postDelayed(updateRunnable, updateIntervalMillis)
+        Log.d("HomeFragment", "Handler started")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        handler.removeCallbacks(updateRunnable)
+        Log.d("HomeFragment", "Handler stopped")
     }
 
     companion object {

@@ -15,4 +15,6 @@
     <string name="delete">Hapus</string>
     <string name="artikel">Artikel</string>
     <string name="article_image">article image</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

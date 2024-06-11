@@ -13,6 +13,10 @@ class DetailHistoryActivity : AppCompatActivity() {
         binding = ActivityDetailHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.topbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
         val imageUrl = intent.getStringExtra("imageUrl")
         val label = intent.getStringExtra("label")
         val suggestion = intent.getStringExtra("suggestion")
@@ -24,5 +28,10 @@ class DetailHistoryActivity : AppCompatActivity() {
         }
         binding.label.text = label
         binding.suggestion.text = suggestion
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

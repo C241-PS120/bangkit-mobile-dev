@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
+import com.example.coffeeprotectionandanalysissystem.R
 import com.example.coffeeprotectionandanalysissystem.databinding.ActivityDetailArtikelBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -19,6 +20,11 @@ class DetailArtikelActivity : AppCompatActivity() {
         // Initialize view binding
         binding = ActivityDetailArtikelBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Set up the toolbar
+        setSupportActionBar(binding.topbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
 
         // Get data from Intent
         val title = intent.getStringExtra("title")
@@ -42,6 +48,11 @@ class DetailArtikelActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     // Method to format the date string

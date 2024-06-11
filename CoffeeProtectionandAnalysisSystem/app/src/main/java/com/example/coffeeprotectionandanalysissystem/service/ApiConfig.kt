@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object ApiConfig {
-    private const val BASE_URL = "https://model-service-dummy-ldfuyzfodq-et.a.run.app/api/v1/"
+    private const val BASE_URL = "https://model-service-ldfuyzfodq-et.a.run.app/api/v1/"
     private const val BASE_URL_ARTICLE = "https://article-service-ldfuyzfodq-et.a.run.app/api/v1/"
     private const val BASE_URL_WEATHER = "http://api.weatherapi.com/v1/"
 
