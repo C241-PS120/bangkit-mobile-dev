@@ -1,31 +1,30 @@
 package com.example.coffeeprotectionandanalysissystem.view.settings
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsetsController
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.example.coffeeprotectionandanalysissystem.R
-import com.example.coffeeprotectionandanalysissystem.databinding.ActivitySettingsBinding
+import com.example.coffeeprotectionandanalysissystem.databinding.ActivityAboutBinding
 
-class SettingsActivity : AppCompatActivity() {
+class AboutActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivitySettingsBinding
+    private lateinit var binding: ActivityAboutBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySettingsBinding.inflate(layoutInflater)
+        binding = ActivityAboutBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupView()
 
         setSupportActionBar(binding.topbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        binding.btnTentangAplikasi.setOnClickListener {
-            startActivity(Intent(this, AboutActivity::class.java))
-        }
+        setupView()
     }
 
     override fun onSupportNavigateUp(): Boolean {
