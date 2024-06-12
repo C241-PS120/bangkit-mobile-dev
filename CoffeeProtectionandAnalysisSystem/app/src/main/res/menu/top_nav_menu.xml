@@ -10,7 +10,7 @@
         <menu>
             <item
                 android:id="@+id/action_sub_settings"
-                android:title="@string/pengaturan"
+                android:title="@string/tentang_aplikasi"
                 android:titleTextColor="@color/black" />
         </menu>
     </item>

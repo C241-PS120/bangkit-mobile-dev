@@ -17,6 +17,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.coffeeprotectionandanalysissystem.R
 import com.example.coffeeprotectionandanalysissystem.databinding.ActivityMainBinding
+import com.example.coffeeprotectionandanalysissystem.view.settings.AboutActivity
 import com.example.coffeeprotectionandanalysissystem.view.settings.SettingsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -75,7 +76,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_sub_settings -> {
-                val intent = Intent(this, SettingsActivity::class.java)
+                val intent = Intent(this, AboutActivity::class.java)
                 startActivity(intent)
                 true
             }
