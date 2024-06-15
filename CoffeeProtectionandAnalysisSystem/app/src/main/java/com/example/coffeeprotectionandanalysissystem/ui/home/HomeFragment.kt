@@ -1,5 +1,4 @@
 package com.example.coffeeprotectionandanalysissystem.ui.home
-
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
@@ -20,24 +19,22 @@ import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.coffeeprotectionandanalysissystem.R
+import com.example.coffeeprotectionandanalysissystem.adapter.ImageSlideAdapter
 import com.example.coffeeprotectionandanalysissystem.databinding.FragmentHomeBinding
 import com.example.coffeeprotectionandanalysissystem.response.WeatherResponse
 import com.example.coffeeprotectionandanalysissystem.view.camera.CameraActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.launch
-import retrofit2.HttpException
 import java.text.SimpleDateFormat
-import java.util.Locale
-
+import java.util.*
 class HomeFragment : Fragment() {
 
-    private val updateIntervalMillis: Long = 60000 // Update every 60 seconds
+    private val updateIntervalMillis: Long = 5000
     private val handler = Handler(Looper.getMainLooper())
     private val updateRunnable = object : Runnable {
         override fun run() {
-            getLastLocation()
+            binding.viewPager.currentItem = (binding.viewPager.currentItem + 1) % imageList.size
+            updateWeatherUI(viewModel.weatherResponse.value)
             handler.postDelayed(this, updateIntervalMillis)
         }
     }
@@ -61,6 +58,21 @@ class HomeFragment : Fragment() {
         ViewModelProvider(this).get(HomeViewModel::class.java)
     }
 
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            getLastLocation()
+        } else {
+            Toast.makeText(requireContext(), "Location permission denied", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private val imageList = listOf(
+        R.drawable.poster1,
+        R.drawable.poster2
+    )
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -68,7 +80,6 @@ class HomeFragment : Fragment() {
         val root: View = binding.root
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-
 
         viewModel.weatherResponse.removeObservers(viewLifecycleOwner)
         viewModel.weatherResponse.observe(viewLifecycleOwner) { weatherResponse ->
@@ -78,6 +89,13 @@ class HomeFragment : Fragment() {
         }
 
         binding.ambilgambar.setOnClickListener { startCameraX() }
+
+        // Setup ViewPager2 with ImageSliderAdapter
+        val imageSliderAdapter = ImageSlideAdapter(imageList)
+        binding.viewPager.adapter = imageSliderAdapter
+
+        // Start auto scrolling of ViewPager2
+        startAutoScroll()
 
         return root
     }
@@ -97,12 +115,7 @@ class HomeFragment : Fragment() {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            Log.d("LocationPermission", "Location permissions not granted")
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                PERMISSION_REQUEST_LOCATION
-            )
+            requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
             return
         }
 
@@ -117,56 +130,50 @@ class HomeFragment : Fragment() {
             }
     }
 
-    private fun updateWeatherUI(weatherResponse: WeatherResponse) {
+    private fun updateWeatherUI(weatherResponse: WeatherResponse?) {
+        weatherResponse?.let {
+            val current = it.current
+            val condition = current?.condition
+            val location = it.location
+            val locationText = "${location?.name ?: "Unknown location"}, ${location?.country ?: "Unknown country"}"
 
-        val current = weatherResponse.current
-        val condition = current?.condition
-        val location = weatherResponse.location
-        val locationText = "${location?.name ?: "Unknown location"}, ${location?.country ?: "Unknown country"}"
+            // Mendapatkan waktu saat ini
+            val currentTimeMillis = System.currentTimeMillis()
+            val formatter = SimpleDateFormat("HH:mm, dd MMM yyyy ", Locale.getDefault())
+            val formattedDate = formatter.format(currentTimeMillis)
 
-        val parser = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
-        val localTimeDate = location?.localtime?.let { parser.parse(it) }
+            binding.date.text = formattedDate
+            binding.weatherDesc.text = condition?.text ?: "N/A"
 
-        val formatter = SimpleDateFormat("HH:mm, dd MMM yyyy ", Locale.getDefault())
-        val formattedDate = localTimeDate?.let { formatter.format(it) }
+            val roundedTempC = current?.tempC?.let { Math.round(it as Double) }
+            binding.weather.text = "${roundedTempC ?: "N/A"}°C"
 
-        binding.date.text = formattedDate ?: "N/A"
-        binding.weatherDesc.text = condition?.text ?: "N/A"
+            binding.location.text = locationText
+        }
+    }
 
-        val roundedTempC = current?.tempC?.let { Math.round(it as Double) }
-        binding.weather.text = "${roundedTempC ?: "N/A"}°C"
 
-        binding.location.text = locationText
+    private fun startAutoScroll() {
+        handler.postDelayed(updateRunnable, updateIntervalMillis)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == PERMISSION_REQUEST_LOCATION && grantResults.isNotEmpty() &&
-            grantResults[0] == PackageManager.PERMISSION_GRANTED
-        ) {
-            getLastLocation()
-        }
+        handler.removeCallbacks(updateRunnable) // Stop the auto scroll when fragment is destroyed
     }
 
     override fun onResume() {
         super.onResume()
         getLastLocation()
-        handler.postDelayed(updateRunnable, updateIntervalMillis)
-        Log.d("HomeFragment", "Handler started")
+        handler.postDelayed(updateRunnable, updateIntervalMillis) // Start the handler when fragment is resumed
+        Log.d("HomeFragment", "Resuming")
     }
 
     override fun onPause() {
         super.onPause()
-        handler.removeCallbacks(updateRunnable)
-        Log.d("HomeFragment", "Handler stopped")
+        handler.removeCallbacks(updateRunnable) // Stop the handler when fragment is paused
+        Log.d("HomeFragment", "Pausing")
     }
 
     companion object {

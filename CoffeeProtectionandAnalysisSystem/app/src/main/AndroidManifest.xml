@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Hardware and Permission Declarations -->
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
@@ -17,6 +18,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+    <!-- Application Configuration -->
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -28,6 +30,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.COPTAS"
         tools:targetApi="32">
+
+        <!-- Activities Declaration -->
         <activity
             android:name=".view.settings.AboutActivity"
             android:exported="false" />
@@ -57,13 +61,16 @@
             android:name=".view.main.MainActivity"
             android:launchMode="singleTop"
             android:exported="true">
+        </activity>
+        <activity
+            android:name=".view.splash.SplashActivity"
+            android:launchMode="singleTop"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
-
 
 </manifest>
