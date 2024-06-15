@@ -38,6 +38,14 @@ class ResultActivity : AppCompatActivity() {
             val currentDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
             saveToDatabase(imageUrl, label, suggestion, currentDate)
         }
+        binding.artikelButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("label", label)
+            intent.putExtra("navigateToArticle", true)
+            startActivity(intent)
+            finish()
+        }
+
     }
 
     private fun saveToDatabase(imageUrl: String?, label: String?, suggestion: String?, date: String?) {
