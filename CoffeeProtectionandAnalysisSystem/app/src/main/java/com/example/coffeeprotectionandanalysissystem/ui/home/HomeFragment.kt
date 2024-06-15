@@ -1,6 +1,7 @@
 package com.example.coffeeprotectionandanalysissystem.ui.home
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
@@ -18,6 +19,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.coffeeprotectionandanalysissystem.R
 import com.example.coffeeprotectionandanalysissystem.databinding.FragmentHomeBinding
 import com.example.coffeeprotectionandanalysissystem.response.WeatherResponse
 import com.example.coffeeprotectionandanalysissystem.view.camera.CameraActivity
@@ -83,6 +85,7 @@ class HomeFragment : Fragment() {
     private fun startCameraX() {
         val intent = Intent(requireContext(), CameraActivity::class.java)
         launcherIntentCameraX.launch(intent)
+        (requireContext() as Activity).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
     private fun getLastLocation() {

@@ -3,6 +3,7 @@ package com.example.coffeeprotectionandanalysissystem.view.detail
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.example.coffeeprotectionandanalysissystem.R
 import com.example.coffeeprotectionandanalysissystem.databinding.ActivityDetailHistoryBinding
 
 class DetailHistoryActivity : AppCompatActivity() {
@@ -30,6 +31,11 @@ class DetailHistoryActivity : AppCompatActivity() {
         binding.suggestion.text = suggestion
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+    }
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true

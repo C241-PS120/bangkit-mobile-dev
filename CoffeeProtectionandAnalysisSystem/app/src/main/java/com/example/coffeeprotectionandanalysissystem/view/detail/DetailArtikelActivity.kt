@@ -50,6 +50,12 @@ class DetailArtikelActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true

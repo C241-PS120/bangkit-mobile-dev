@@ -55,6 +55,7 @@
             android:exported="false" />
         <activity
             android:name=".view.main.MainActivity"
+            android:launchMode="singleTop"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -63,5 +64,6 @@
             </intent-filter>
         </activity>
     </application>
+
 
 </manifest>

@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
             label?.let {
                 val bundle = Bundle()
                 bundle.putString("label", it)
-                findNavController(R.id.navigation_home).navigate(R.id.navigation_article)
+                findNavController(R.id.nav_host_fragment_activity_main).navigate(R.id.navigation_article)
             }
         }
     }

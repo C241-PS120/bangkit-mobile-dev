@@ -1,9 +1,11 @@
 package com.example.coffeeprotectionandanalysissystem.adapter
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.coffeeprotectionandanalysissystem.R
 import com.example.coffeeprotectionandanalysissystem.database.History
 import com.example.coffeeprotectionandanalysissystem.databinding.ActivityListHistoryBinding
 
@@ -28,6 +30,7 @@ class HistoryAdapter(
             }
             binding.root.setOnClickListener {
                 onItemClicked(history)
+                (binding.root.context as Activity).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
         }
     }
