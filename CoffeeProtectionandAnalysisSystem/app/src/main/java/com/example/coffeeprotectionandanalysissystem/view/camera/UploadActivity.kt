@@ -78,6 +78,12 @@ class UploadActivity : AppCompatActivity() {
                                     putExtra("label", predictionResponse.data?.label)
                                     putExtra("id", predictionResponse.data?.id)
                                     putExtra("suggestion", predictionResponse.data?.suggestion)
+                                    putExtra("symptoms",
+                                        predictionResponse.data?.symptoms?.let { it1 ->
+                                            ArrayList(
+                                                it1
+                                            )
+                                        })
                                 }
                                 startActivity(intent)
                             }

@@ -86,6 +86,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/suggestion"
                 tools:text="Miner" />
+
+            <!-- RecyclerView for symptoms list -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/label"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
@@ -99,27 +111,15 @@
         android:gravity="center">
 
         <Button
-            android:id="@+id/artikelButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/green"
-            android:drawableLeft="@drawable/ic_button_save"
-            android:drawablePadding="8dp"
-            android:layout_marginEnd="8dp"
-            android:gravity="center"
-            android:text="@string/artikel" />
-
-        <Button
             android:id="@+id/saveButton"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginStart="8dp"
             android:backgroundTint="@color/green"
             android:drawableLeft="@drawable/ic_button_save"
             android:drawablePadding="8dp"
-            android:layout_marginStart="8dp"
             android:gravity="center"
+            android:padding="16dp"
             android:text="@string/save" />
 
     </LinearLayout>

@@ -5,18 +5,22 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.coffeeprotectionandanalysissystem.adapter.SymptomsAdapter
 import com.example.coffeeprotectionandanalysissystem.database.AppDatabase
 import com.example.coffeeprotectionandanalysissystem.database.History
 import com.example.coffeeprotectionandanalysissystem.databinding.ActivityResultBinding
 import com.example.coffeeprotectionandanalysissystem.view.main.MainActivity
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 class ResultActivity : AppCompatActivity() {
     private lateinit var binding: ActivityResultBinding
+    private lateinit var symptomsAdapter: SymptomsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +30,7 @@ class ResultActivity : AppCompatActivity() {
         val imageUrl = intent.getStringExtra("imageUrl")
         val label = intent.getStringExtra("label")
         val suggestion = intent.getStringExtra("suggestion")
+        val symptoms = intent.getStringArrayListExtra("symptoms")
 
         imageUrl?.let {
             Glide.with(this)
@@ -38,17 +43,30 @@ class ResultActivity : AppCompatActivity() {
             val currentDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
             saveToDatabase(imageUrl, label, suggestion, currentDate)
         }
-        binding.artikelButton.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("label", label)
-            intent.putExtra("navigateToArticle", true)
-            startActivity(intent)
-            finish()
-        }
-
+        setupRecyclerView()
+        loadSymptoms(symptoms)
     }
 
-    private fun saveToDatabase(imageUrl: String?, label: String?, suggestion: String?, date: String?) {
+    private fun setupRecyclerView() {
+        symptomsAdapter = SymptomsAdapter()
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(this@ResultActivity)
+            adapter = symptomsAdapter
+        }
+    }
+
+    private fun loadSymptoms(symptoms: ArrayList<String>?) {
+        symptoms?.let {
+            symptomsAdapter.setSymptoms(it)
+        }
+    }
+
+    private fun saveToDatabase(
+        imageUrl: String?,
+        label: String?,
+        suggestion: String?,
+        date: String?
+    ) {
         if (imageUrl != null && label != null && suggestion != null && date != null) {
             val history = History(
                 imageId = imageUrl,
@@ -59,7 +77,11 @@ class ResultActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 AppDatabase.getDatabase(this@ResultActivity).historyDao().addHistory(history)
                 runOnUiThread {
-                    Toast.makeText(this@ResultActivity, "Riwayat Berhasil Disimpan!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@ResultActivity,
+                        "Riwayat Berhasil Disimpan!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     navigateToMainActivity()
                 }
             }
@@ -68,7 +90,7 @@ class ResultActivity : AppCompatActivity() {
         }
     }
 
-    private fun navigateToMainActivity(){
+    private fun navigateToMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
