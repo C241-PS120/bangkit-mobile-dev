@@ -1,9 +1,15 @@
 package com.example.coffeeprotectionandanalysissystem.view.result
 
 import android.content.Intent
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.view.WindowInsetsController
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -16,6 +22,7 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import com.bumptech.glide.request.target.Target
 
 class ResultActivity : AppCompatActivity() {
     private lateinit var binding: ActivityResultBinding
@@ -34,6 +41,7 @@ class ResultActivity : AppCompatActivity() {
         imageUrl?.let {
             Glide.with(this)
                 .load(it)
+                .override(Target.SIZE_ORIGINAL) // This will make the image view the same size as the original image
                 .into(binding.ivLeaf)
         }
         binding.label.text = label
@@ -93,7 +101,6 @@ class ResultActivity : AppCompatActivity() {
             Toast.makeText(this, "Cannot save. Data is missing.", Toast.LENGTH_SHORT).show()
         }
     }
-
 
 
     private fun navigateToMainActivity() {

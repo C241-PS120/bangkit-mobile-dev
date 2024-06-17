@@ -19,87 +19,122 @@
         app:titleTextColor="@color/green"
         app:navigationIcon="@drawable/baseline_arrow_back_24"/>
 
-    <!-- ScrollView for content -->
-    <ScrollView
+    <!-- Main content area -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:orientation="vertical"
         android:padding="16dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_rectangle"
-            android:elevation="4dp"
-            android:padding="16dp">
+            android:fillViewport="true">
 
-            <!-- ImageView for leaf image -->
-            <ImageView
-                android:id="@+id/ivLeaf"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                app:layout_constraintDimensionRatio="1:1.5"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/analysis_result"
-                tools:srcCompat="@tools:sample/avatars" />
-
-            <!-- Analysis result text -->
-            <TextView
-                android:id="@+id/analysis_result"
-                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:text="@string/hasil_analisis"
-                android:textAppearance="?attr/textAppearanceHeadline6"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ivLeaf" />
+                android:orientation="vertical">
 
-            <!-- Suggestion text -->
-            <TextView
-                android:id="@+id/suggestion"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/analysis_result"
-                tools:text="Coptas Mendeteksi adanya penyakit Leaf Miner pada daun Kopi" />
+                <!-- First ConstraintLayout for image and analysis result -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_rectangle"
+                    android:elevation="4dp"
+                    android:padding="16dp">
 
-            <!-- Accuracy percentage text -->
-            <TextView
-                android:id="@+id/label"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="center"
-                android:textAppearance="?attr/textAppearanceHeadline4"
-                android:textColor="@android:color/holo_green_dark"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/suggestion"
-                tools:text="Miner" />
+                    <!-- ImageView for leaf image -->
+                    <ImageView
+                        android:id="@+id/ivLeaf"
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintDimensionRatio="1:1.5"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/analysis_result"
+                        tools:srcCompat="@tools:sample/avatars" />
 
-            <!-- RecyclerView for symptoms list -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@id/label"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                    <!-- Analysis result text -->
+                    <TextView
+                        android:id="@+id/analysis_result"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:text="@string/hasil_analisis"
+                        android:textAppearance="?attr/textAppearanceHeadline6"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ivLeaf" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+                    <!-- Label text -->
+                    <TextView
+                        android:id="@+id/label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:textAppearance="?attr/textAppearanceHeadline4"
+                        android:textColor="@android:color/holo_green_dark"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/analysis_result"
+                        tools:text="Miner" />
+
+                    <!-- Suggestion text -->
+                    <TextView
+                        android:id="@+id/suggestion"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/label"
+                        tools:text="Coptas Mendeteksi adanya penyakit Leaf Miner pada daun Kopi" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- New container for Symptoms header and RecyclerView -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/rounded_rectangle"
+                    android:elevation="4dp"
+                    android:padding="16dp">
+
+                    <!-- Symptoms header -->
+                    <TextView
+                        android:id="@+id/symptom_header"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:gravity="center"
+                        android:text="@string/gejala"
+                        android:textAppearance="?attr/textAppearanceHeadline6"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <!-- RecyclerView for symptoms list -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/symptom_header"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 
     <!-- LinearLayout for buttons -->
     <LinearLayout
@@ -121,6 +156,5 @@
             android:gravity="center"
             android:padding="16dp"
             android:text="@string/save" />
-
     </LinearLayout>
 </LinearLayout>
