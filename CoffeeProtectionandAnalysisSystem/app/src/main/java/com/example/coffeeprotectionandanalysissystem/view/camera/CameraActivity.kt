@@ -151,7 +151,7 @@ class CameraActivity : AppCompatActivity() {
         }
         UCrop.of(uri, destinationUri)
             .withOptions(options)
-            .withAspectRatio(1f, 1f)
+            .withAspectRatio(16f, 9f)
             .start(this)
     }
 
