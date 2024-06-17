@@ -13,5 +13,6 @@ data class History(
     @ColumnInfo(name = "image") val imageId: String,
     @ColumnInfo(name = "label") val label: String,
     @ColumnInfo(name = "suggestion") val suggestion: String,
-    @ColumnInfo(name = "date") val date: String
+    @ColumnInfo(name = "date") val date: String,
+    @ColumnInfo(name = "symptoms") val symptoms: List<String>?
 ) : Parcelable

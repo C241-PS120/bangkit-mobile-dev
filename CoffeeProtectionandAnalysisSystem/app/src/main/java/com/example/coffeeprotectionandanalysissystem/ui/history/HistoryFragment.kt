@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coffeeprotectionandanalysissystem.adapter.HistoryAdapter
-import com.example.coffeeprotectionandanalysissystem.databinding.FragmentHistoryBinding
 import com.example.coffeeprotectionandanalysissystem.database.AppDatabase
+import com.example.coffeeprotectionandanalysissystem.databinding.FragmentHistoryBinding
 import com.example.coffeeprotectionandanalysissystem.database.History
 import com.example.coffeeprotectionandanalysissystem.view.detail.DetailHistoryActivity
 import kotlinx.coroutines.CoroutineScope
@@ -62,6 +62,7 @@ class HistoryFragment : Fragment() {
             putExtra("imageUrl", history.imageId)
             putExtra("label", history.label)
             putExtra("suggestion", history.suggestion)
+            putStringArrayListExtra("symptoms", ArrayList(history.symptoms))
         }
         startActivity(intent)
     }

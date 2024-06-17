@@ -3,6 +3,7 @@ package com.example.coffeeprotectionandanalysissystem.view.detail
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.text.SpannableStringBuilder
 import android.view.View
 import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
@@ -27,6 +28,7 @@ class DetailHistoryActivity : AppCompatActivity() {
         val imageUrl = intent.getStringExtra("imageUrl")
         val label = intent.getStringExtra("label")
         val suggestion = intent.getStringExtra("suggestion")
+        val symptoms = intent.getStringArrayListExtra("symptoms")
 
         imageUrl?.let {
             Glide.with(this)
@@ -36,6 +38,16 @@ class DetailHistoryActivity : AppCompatActivity() {
         binding.label.text = label
         binding.suggestion.text = suggestion
 
+        // Display symptoms as a numbered list with space between each symptom
+        if (symptoms != null && symptoms.isNotEmpty()) {
+            val spannableStringBuilder = SpannableStringBuilder()
+            symptoms.forEachIndexed { index, symptom ->
+                spannableStringBuilder.append("${index + 1}. $symptom\n\n")
+            }
+            binding.tvSymptoms.text = spannableStringBuilder
+        } else {
+            binding.tvSymptoms.text = "No symptoms available"
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -51,10 +63,12 @@ class DetailHistoryActivity : AppCompatActivity() {
         finish()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
     }
+
     private fun setupView() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.setDecorFitsSystemWindows(false)

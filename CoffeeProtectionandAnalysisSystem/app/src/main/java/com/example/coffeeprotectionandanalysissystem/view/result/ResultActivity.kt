@@ -13,7 +13,6 @@ import com.example.coffeeprotectionandanalysissystem.database.History
 import com.example.coffeeprotectionandanalysissystem.databinding.ActivityResultBinding
 import com.example.coffeeprotectionandanalysissystem.view.main.MainActivity
 import kotlinx.coroutines.launch
-import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -39,12 +38,12 @@ class ResultActivity : AppCompatActivity() {
         }
         binding.label.text = label
         binding.suggestion.text = suggestion
-        binding.saveButton.setOnClickListener {
-            val currentDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
-            saveToDatabase(imageUrl, label, suggestion, currentDate)
-        }
         setupRecyclerView()
         loadSymptoms(symptoms)
+        binding.saveButton.setOnClickListener {
+            val currentDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+            saveToDatabase(imageUrl, label, suggestion, currentDate, symptoms)
+        }
     }
 
     private fun setupRecyclerView() {
@@ -65,15 +64,20 @@ class ResultActivity : AppCompatActivity() {
         imageUrl: String?,
         label: String?,
         suggestion: String?,
-        date: String?
+        date: String?,
+        symptoms: ArrayList<String>?
     ) {
-        if (imageUrl != null && label != null && suggestion != null && date != null) {
+        if (imageUrl != null && label != null && suggestion != null && date != null && symptoms != null) {
+            val symptomsList: List<String> = symptoms.toList()
+
             val history = History(
                 imageId = imageUrl,
                 label = label,
                 suggestion = suggestion,
-                date = date
+                date = date,
+                symptoms = symptomsList
             )
+
             lifecycleScope.launch {
                 AppDatabase.getDatabase(this@ResultActivity).historyDao().addHistory(history)
                 runOnUiThread {
@@ -89,6 +93,8 @@ class ResultActivity : AppCompatActivity() {
             Toast.makeText(this, "Cannot save. Data is missing.", Toast.LENGTH_SHORT).show()
         }
     }
+
+
 
     private fun navigateToMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
