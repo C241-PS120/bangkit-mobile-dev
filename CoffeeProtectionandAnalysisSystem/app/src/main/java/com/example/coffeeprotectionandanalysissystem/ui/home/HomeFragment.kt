@@ -70,7 +70,8 @@ class HomeFragment : Fragment() {
 
     private val imageList = listOf(
         R.drawable.poster1,
-        R.drawable.poster2
+        R.drawable.poster2,
+        R.drawable.poster3
     )
 
     override fun onCreateView(
