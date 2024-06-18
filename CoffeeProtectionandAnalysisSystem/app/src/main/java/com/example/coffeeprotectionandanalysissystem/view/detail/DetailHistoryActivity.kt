@@ -12,7 +12,6 @@ import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.example.coffeeprotectionandanalysissystem.R
 import com.example.coffeeprotectionandanalysissystem.databinding.ActivityDetailHistoryBinding
-
 class DetailHistoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailHistoryBinding
 
@@ -49,9 +48,9 @@ class DetailHistoryActivity : AppCompatActivity() {
             binding.tvSymptoms.text = "No symptoms available"
         }
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.topbar) { view, insets ->
+            val systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.setPadding(systemBarsInsets.left, systemBarsInsets.top, systemBarsInsets.right, 0)
             insets
         }
 

@@ -16,6 +16,9 @@ data class DataItem(
 	@field:SerializedName("article_id")
 	val articleId: Int? = null,
 
+	@field:SerializedName("disease")
+	val disease: String? = null,
+
 	@field:SerializedName("updated_at")
 	val updatedAt: String? = null,
 
@@ -27,9 +30,6 @@ data class DataItem(
 
 	@field:SerializedName("title")
 	val title: String? = null,
-
-	@field:SerializedName("category")
-	val category: String? = null,
 
 	@field:SerializedName("content")
 	val content: String? = null

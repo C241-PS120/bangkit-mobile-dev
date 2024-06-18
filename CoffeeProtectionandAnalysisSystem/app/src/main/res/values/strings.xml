@@ -10,7 +10,7 @@
     <string name="scan_gambar">Scan Gambar</string>
     <string name="ambil_gambar">Ambil Gambar</string>
     <string name="search">Pencarian</string>
-    <string name="hasil_analisis">Hasil Analisis</string>
+    <string name="hasil_analisis">Hasil Analisis:</string>
     <string name="save">Simpan</string>
     <string name="delete">Hapus</string>
     <string name="artikel">Artikel</string>
@@ -18,5 +18,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="about">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed cras ornare arcu dui vivamus arcu. Morbi tristique senectus et netus. Et magnis dis parturient montes nascetur ridiculus mus. Rutrum quisque non tellus orci ac auctor. Volutpat ac tincidunt vitae semper quis lectus. Aliquam sem fringilla ut morbi. Bibendum at varius vel pharetra vel turpis. Arcu vitae elementum curabitur vitae nunc sed velit. Convallis aenean et tortor at risus viverra. Bibendum enim facilisis gravida neque convallis. Ut sem nulla pharetra diam sit amet nisl suscipit. Dolor sit amet consectetur adipiscing. Ipsum nunc aliquet bibendum enim facilisis gravida. Velit egestas dui id ornare.</string>
     <string name="tentang_aplikasi">Tentang Aplikasi</string>
-    <string name="gejala">Gejala</string>
+    <string name="gejala">Gejala:</string>
+    <string name="riwayat">Riwayat Scan\n</string>
 </resources>

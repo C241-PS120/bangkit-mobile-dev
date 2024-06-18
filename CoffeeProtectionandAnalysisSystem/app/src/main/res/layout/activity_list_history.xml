@@ -61,8 +61,8 @@
             android:id="@+id/date_history"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/title_background"
             android:gravity="center"
             android:padding="8dp"
@@ -72,17 +72,29 @@
             app:layout_constraintTop_toBottomOf="@id/description_dashboard"
             tools:text="12/12/2021" />
 
-        <Button
-            android:id="@+id/deleteButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/red"
-            android:text="@string/delete"
-            android:textColor="@android:color/white"
-            app:layout_constraintStart_toEndOf="@id/date_history"
-            app:layout_constraintTop_toBottomOf="@id/description_dashboard"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="8dp"/>
+        <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:cardCornerRadius="50dp"
+        app:cardBackgroundColor="@color/red"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/date_history"
+        app:layout_constraintTop_toBottomOf="@id/description_dashboard">
+
+            <ImageButton
+                android:id="@+id/deleteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:contentDescription="Delete"
+                android:padding="16dp"
+                android:src="@drawable/ic_delete" />
+
+        </androidx.cardview.widget.CardView>
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

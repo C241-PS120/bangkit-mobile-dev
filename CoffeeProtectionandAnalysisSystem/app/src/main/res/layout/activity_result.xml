@@ -12,12 +12,16 @@
         android:id="@+id/topbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
         android:background="@color/white"
-        android:paddingTop="10dp"
-        android:paddingBottom="15dp"
-        app:titleMarginTop="20dp"
+        android:gravity="center_vertical"
+        app:title="@string/app_name"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        app:navigationIcon="@drawable/baseline_arrow_back_24"
+        app:titleMarginTop="0dp"
         app:titleTextColor="@color/green"
-        app:navigationIcon="@drawable/baseline_arrow_back_24"/>
+        android:fitsSystemWindows="true" />
 
 
     <LinearLayout
@@ -67,7 +71,6 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:gravity="center"
                         android:text="@string/hasil_analisis"
                         android:textAppearance="?attr/textAppearanceHeadline6"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -115,7 +118,6 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:gravity="center"
                         android:text="@string/gejala"
                         android:textAppearance="?attr/textAppearanceHeadline6"
                         app:layout_constraintTop_toTopOf="parent"

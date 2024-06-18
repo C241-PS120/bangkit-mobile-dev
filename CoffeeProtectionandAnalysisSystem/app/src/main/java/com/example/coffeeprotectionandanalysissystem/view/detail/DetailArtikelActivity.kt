@@ -34,22 +34,20 @@ class DetailArtikelActivity : AppCompatActivity() {
         val title = intent.getStringExtra("title")
         val imageUrl = intent.getStringExtra("imageUrl")
         val content = intent.getStringExtra("content")
-        val author = intent.getStringExtra("author")
         val createdAt = intent.getStringExtra("createdAt")
 
         // Set data to views
         binding.rvTitle.text = title
         binding.rvContent.text = content
-        binding.rvAuthor.text = author
         binding.rvDate.text = formatDate(createdAt)
         Glide.with(this)
             .load(imageUrl)
             .into(binding.rvArticle)
 
         // Apply window insets using view binding
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.topbar) { view, insets ->
+            val systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.setPadding(systemBarsInsets.left, systemBarsInsets.top, systemBarsInsets.right, 0)
             insets
         }
 

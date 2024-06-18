@@ -65,7 +65,6 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>(),
                 .load(article.imageUrl)
                 .into(binding.image)
             binding.content.text = article.content
-            binding.author.text = article.category
             binding.publishedAt.text = article.createdAt
 
             binding.root.setOnClickListener {
@@ -74,7 +73,6 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>(),
                     putExtra("title", article.title)
                     putExtra("imageUrl", article.imageUrl)
                     putExtra("content", article.content)
-                    putExtra("author", article.category)
                     putExtra("createdAt", article.createdAt)
                 }
                 context.startActivity(intent)

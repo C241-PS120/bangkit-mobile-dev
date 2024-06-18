@@ -19,7 +19,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.coffeeprotectionandanalysissystem.R
 import com.example.coffeeprotectionandanalysissystem.databinding.ActivityMainBinding
 import com.example.coffeeprotectionandanalysissystem.view.settings.AboutActivity
-import com.example.coffeeprotectionandanalysissystem.view.settings.SettingsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -62,7 +61,7 @@ class MainActivity : AppCompatActivity() {
             label?.let {
                 val bundle = Bundle()
                 bundle.putString("label", it)
-                findNavController(R.id.nav_host_fragment_activity_main).navigate(R.id.navigation_article)
+                findNavController(R.id.nav_host_fragment_activity_main).navigate(R.id.navigation_article, bundle)
             }
         }
     }
