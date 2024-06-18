@@ -66,7 +66,7 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>(),
                 .into(binding.image)
             binding.content.text = article.content
             binding.author.text = article.category
-            binding.publishedAt.text = formatDate(article.createdAt)
+            binding.publishedAt.text = article.createdAt
 
             binding.root.setOnClickListener {
                 val context = binding.root.context
@@ -81,23 +81,6 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>(),
                 (context as Activity).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
         }
-
-        private fun formatDate(dateString: String?): String {
-            if (dateString.isNullOrEmpty()) {
-                return ""
-            }
-
-            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
-            val outputFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
-
-            val date = inputFormat.parse(dateString)
-            return if (date != null) {
-                outputFormat.format(date)
-            } else {
-                ""
-            }
-        }
-
     }
 
 }
