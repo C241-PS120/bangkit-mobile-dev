@@ -50,21 +50,10 @@
             tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
 
         <TextView
-            android:id="@+id/author"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/content"
-            android:textSize="14sp"
-            android:textStyle="italic"
-            android:textColor="@android:color/darker_gray"
-            android:layout_marginTop="8dp"
-            tools:text="Author Name" />
-
-        <TextView
             android:id="@+id/publishedAt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/author"
+            android:layout_below="@id/content"
             android:textSize="14sp"
             android:textColor="@android:color/darker_gray"
             android:layout_marginTop="4dp"

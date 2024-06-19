@@ -3,20 +3,25 @@ package com.example.coffeeprotectionandanalysissystem.view.detail
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowInsetsController
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.example.coffeeprotectionandanalysissystem.R
 import com.example.coffeeprotectionandanalysissystem.databinding.ActivityDetailArtikelBinding
+import com.example.coffeeprotectionandanalysissystem.ui.article.ArticleViewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
+import kotlin.math.log
 
 class DetailArtikelActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailArtikelBinding
+    private val articleViewModel: ArticleViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,19 +35,38 @@ class DetailArtikelActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        // Get data from Intent
-        val title = intent.getStringExtra("title")
-        val imageUrl = intent.getStringExtra("imageUrl")
-        val content = intent.getStringExtra("content")
-        val createdAt = intent.getStringExtra("createdAt")
+        // Get article ID from Intent
+        val articleId = intent.getIntExtra("articleId", -1)
 
-        // Set data to views
-        binding.rvTitle.text = title
-        binding.rvContent.text = content
-        binding.rvDate.text = formatDate(createdAt)
-        Glide.with(this)
-            .load(imageUrl)
-            .into(binding.rvArticle)
+        if (articleId != -1) {
+            Log.d("DetailArtikelActivity", "Article ID: $articleId")
+            articleViewModel.fetchArticleById(articleId)
+        }
+
+        // Observe the article details
+        articleViewModel.article.observe(this) { article ->
+            article?.let {
+                binding.rvTitle.text = it.title ?: ""
+                binding.rvContent.text = it.content ?: ""
+                binding.rvDate.text = formatDate(it.createdAt)
+                Glide.with(this)
+                    .load(it.imageUrl)
+                    .into(binding.rvArticle)
+
+                binding.rvSymptomSummary.text = it.symptomSummary ?: ""
+
+                // Ensure to handle nullable lists properly
+                binding.rvSymptoms.text = it.symptoms?.joinToString("\n") ?: ""
+                binding.rvPreventions.text = it.preventions?.joinToString("\n") ?: ""
+
+                it.treatments?.let { treatments ->
+                    binding.rvTreatmentsChemical.text = treatments.chemical ?: ""
+                    binding.rvTreatmentsOrganic.text = treatments.organic ?: ""
+                }
+
+                binding.rvPlants.text = it.plants?.joinToString(", ") ?: ""
+            }
+        }
 
         // Apply window insets using view binding
         ViewCompat.setOnApplyWindowInsetsListener(binding.topbar) { view, insets ->
@@ -84,6 +108,7 @@ class DetailArtikelActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun setupView() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.setDecorFitsSystemWindows(false)

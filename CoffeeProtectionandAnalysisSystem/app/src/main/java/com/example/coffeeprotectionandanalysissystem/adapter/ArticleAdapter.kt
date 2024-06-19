@@ -67,18 +67,11 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>(),
             binding.content.text = article.content
             binding.publishedAt.text = article.createdAt
 
-            binding.root.setOnClickListener {
-                val context = binding.root.context
-                val intent = Intent(context, DetailArtikelActivity::class.java).apply {
-                    putExtra("title", article.title)
-                    putExtra("imageUrl", article.imageUrl)
-                    putExtra("content", article.content)
-                    putExtra("createdAt", article.createdAt)
-                }
-                context.startActivity(intent)
-                (context as Activity).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            itemView.setOnClickListener {
+                val intent = Intent(itemView.context, DetailArtikelActivity::class.java)
+                intent.putExtra("articleId", article.articleId)
+                itemView.context.startActivity(intent)
             }
         }
     }
-
 }

@@ -34,7 +34,6 @@
             android:layout_margin="16dp"
             android:padding="16dp">
 
-
             <TextView
                 android:id="@+id/rv_date"
                 android:layout_width="0dp"
@@ -80,9 +79,97 @@
                 app:layout_constraintTop_toBottomOf="@+id/rv_title"
                 tools:text="Content" />
 
+            <TextView
+                android:id="@+id/rv_symptom_summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@+id/rv_content"
+                tools:text="Gejala" />
+
+            <TextView
+                android:id="@+id/rv_symptoms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:justificationMode="inter_word"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/rv_symptom_summary"
+                tools:text="Symptoms" />
+
+            <TextView
+                android:id="@+id/rv_preventions_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@+id/rv_symptoms"
+                tools:text="Bagaimana Cara Mencegahnya?" />
+
+            <TextView
+                android:id="@+id/rv_preventions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:justificationMode="inter_word"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/rv_preventions_title"
+                tools:text="Preventions" />
+
+            <TextView
+                android:id="@+id/rv_treatments_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@+id/rv_preventions"
+                tools:text="Bagaimana Cara Mengobatinya?" />
+
+            <TextView
+                android:id="@+id/rv_treatments_chemical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:justificationMode="inter_word"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/rv_treatments_title"
+                tools:text="Chemical Treatments" />
+
+            <TextView
+                android:id="@+id/rv_treatments_organic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:justificationMode="inter_word"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/rv_treatments_chemical"
+                tools:text="Organic Treatments" />
+
+            <TextView
+                android:id="@+id/rv_plants_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@+id/rv_treatments_organic"
+                tools:text="Tanaman yang Terinfeksi" />
+
+            <TextView
+                android:id="@+id/rv_plants"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:justificationMode="inter_word"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/rv_plants_title"
+                tools:text="Infected Plants" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-
 
 </LinearLayout>
