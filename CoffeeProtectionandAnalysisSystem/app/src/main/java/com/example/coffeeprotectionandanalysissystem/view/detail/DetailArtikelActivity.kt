@@ -16,7 +16,6 @@ import com.example.coffeeprotectionandanalysissystem.databinding.ActivityDetailA
 import com.example.coffeeprotectionandanalysissystem.ui.article.ArticleViewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
-import kotlin.math.log
 
 class DetailArtikelActivity : AppCompatActivity() {
 

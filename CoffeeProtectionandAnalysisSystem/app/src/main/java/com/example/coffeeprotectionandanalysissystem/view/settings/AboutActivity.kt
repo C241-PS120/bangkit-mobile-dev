@@ -5,11 +5,9 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsetsController
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.coffeeprotectionandanalysissystem.R
 import com.example.coffeeprotectionandanalysissystem.databinding.ActivityAboutBinding
 
 class AboutActivity : AppCompatActivity() {

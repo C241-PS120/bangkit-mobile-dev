@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.coffeeprotectionandanalysissystem.R
 import com.example.coffeeprotectionandanalysissystem.adapter.ArticleAdapter
 import com.example.coffeeprotectionandanalysissystem.databinding.FragmentArticleBinding
 class ArticleFragment : Fragment() {
@@ -55,6 +56,7 @@ class ArticleFragment : Fragment() {
     }
 
     private fun setupSearchView() {
+        binding.searchView.queryHint = getString(R.string.cariartikel)
         binding.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
@@ -66,6 +68,7 @@ class ArticleFragment : Fragment() {
             }
         })
     }
+
 
     private fun loadArticles() {
         articleViewModel.articles.observe(viewLifecycleOwner) { articles ->

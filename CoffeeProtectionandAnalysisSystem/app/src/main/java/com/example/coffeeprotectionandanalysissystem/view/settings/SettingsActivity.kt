@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
-import com.example.coffeeprotectionandanalysissystem.R
 import com.example.coffeeprotectionandanalysissystem.databinding.ActivitySettingsBinding
 
 class SettingsActivity : AppCompatActivity() {
