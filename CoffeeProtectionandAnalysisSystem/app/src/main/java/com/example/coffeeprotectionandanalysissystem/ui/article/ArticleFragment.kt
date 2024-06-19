@@ -69,7 +69,9 @@ class ArticleFragment : Fragment() {
 
     private fun loadArticles() {
         articleViewModel.articles.observe(viewLifecycleOwner) { articles ->
-            articleAdapter.setArticles(articles)
+            if (articles != null) {
+                articleAdapter.setArticles(articles)
+            }
         }
 
         articleViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->

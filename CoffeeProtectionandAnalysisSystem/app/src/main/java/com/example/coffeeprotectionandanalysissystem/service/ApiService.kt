@@ -1,5 +1,6 @@
 import com.example.coffeeprotectionandanalysissystem.response.ArticleResponse
 import com.example.coffeeprotectionandanalysissystem.response.PredictionResponse
+import com.example.coffeeprotectionandanalysissystem.response.SingleArticleResponse
 import com.example.coffeeprotectionandanalysissystem.response.WeatherResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -28,6 +29,6 @@ interface ApiService {
     ): WeatherResponse
 
     @GET("articles/{id}")
-    suspend fun getArticleById(@Path("articleId") id: Int): ArticleResponse
+    suspend fun getArticleById(@Path("id") id: Int): SingleArticleResponse
 
 }

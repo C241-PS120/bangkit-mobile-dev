@@ -10,8 +10,8 @@ import kotlinx.coroutines.launch
 
 class ArticleViewModel : ViewModel() {
 
-    private val _articles = MutableLiveData<List<DataItem>>()
-    val articles: LiveData<List<DataItem>> get() = _articles
+    private val _articles = MutableLiveData<List<DataItem>?>()
+    val articles: MutableLiveData<List<DataItem>?> get() = _articles
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
@@ -30,7 +30,7 @@ class ArticleViewModel : ViewModel() {
             _isLoading.value = true
             try {
                 val response = apiService.getAllArticles()
-                _articles.value = response.data?.filterNotNull() ?: emptyList()
+                _articles.value = response.data as List<DataItem>? ?: listOf()
             } catch (e: Exception) {
                 e.printStackTrace()
             } finally {
@@ -40,16 +40,16 @@ class ArticleViewModel : ViewModel() {
     }
 
     fun fetchArticleById(articleId: Int) {
-        viewModelScope.launch {
-            _isLoading.value = true
-            try {
-                val response = apiService.getArticleById(articleId)
-                _article.value = response.data?.firstOrNull()
-            } catch (e: Exception) {
-                e.printStackTrace()
-            } finally {
-                _isLoading.value = false
-            }
+    viewModelScope.launch {
+        _isLoading.value = true
+        try {
+            val response = apiService.getArticleById(articleId)
+            _article.value = response.data
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            _isLoading.value = false
         }
     }
+}
 }

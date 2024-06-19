@@ -20,4 +20,10 @@
     <string name="tentang_aplikasi">Tentang Aplikasi</string>
     <string name="gejala">Gejala:</string>
     <string name="riwayat">Riwayat Scan\n</string>
+    <string name="bagaimana_cara_mencegahnya">Bagaimana Cara Mencegahnya?</string>
+    <string name="bagaimana_cara_mengobatinya">Bagaimana Cara Mengobatinya?</string>
+    <string name="tanaman_yang_terinfeksi">Tanaman yang Terinfeksi</string>
+    <string name="disebabkan_oleh">Disebabkan Oleh:</string>
+    <string name="chemical">Chemical :</string>
+    <string name="organic">Organic   :</string>
 </resources>

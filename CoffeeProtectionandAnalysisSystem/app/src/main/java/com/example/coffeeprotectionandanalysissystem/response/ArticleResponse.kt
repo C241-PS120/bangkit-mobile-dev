@@ -11,6 +11,11 @@ data class ArticleResponse(
     val success: Boolean? = null
 )
 
+data class SingleArticleResponse(
+    val success: Boolean,
+    val data: DataItem?
+)
+
 data class DataItem(
 
     @field:SerializedName("article_id")

@@ -46,25 +46,27 @@ class DetailArtikelActivity : AppCompatActivity() {
         // Observe the article details
         articleViewModel.article.observe(this) { article ->
             article?.let {
-                binding.rvTitle.text = it.title ?: ""
-                binding.rvContent.text = it.content ?: ""
-                binding.rvDate.text = formatDate(it.createdAt)
+                binding.rvTitle.text = article.title ?: ""
+                binding.rvContent.text = article.content ?: ""
+                binding.rvDate.text = formatDate(article.createdAt)
                 Glide.with(this)
-                    .load(it.imageUrl)
+                    .load(article.imageUrl)
                     .into(binding.rvArticle)
 
-                binding.rvSymptomSummary.text = it.symptomSummary ?: ""
+                binding.rvSymptomTitle.text = getString(R.string.gejala)
 
-                // Ensure to handle nullable lists properly
-                binding.rvSymptoms.text = it.symptoms?.joinToString("\n") ?: ""
-                binding.rvPreventions.text = it.preventions?.joinToString("\n") ?: ""
+                binding.rvSymptoms.text = article.symptoms?.joinToString("\n") { "• $it" } ?: ""
 
-                it.treatments?.let { treatments ->
+                binding.rvPreventions.text = article.preventions?.joinToString("\n") { "• $it" } ?: ""
+
+                binding.rvSymptomSummary.text = article.symptomSummary ?: ""
+                binding.rvCause.text = article.cause ?: ""
+                binding.rvCauseDescription.text = getString(R.string.disebabkan_oleh)
+                binding.rvPreventionsTitle.text = getString(R.string.bagaimana_cara_mencegahnya)
+                article.treatments?.let { treatments ->
                     binding.rvTreatmentsChemical.text = treatments.chemical ?: ""
                     binding.rvTreatmentsOrganic.text = treatments.organic ?: ""
                 }
-
-                binding.rvPlants.text = it.plants?.joinToString(", ") ?: ""
             }
         }
 
