@@ -29,10 +29,6 @@ class ArticleFragment : Fragment() {
         setupRecyclerView()
         setupSearchView()
 
-        // Get the label argument and set it to the SearchView
-        arguments?.getString("label")?.let { label ->
-            binding.searchView.setQuery(label, false)
-        }
 
         return root
     }
@@ -56,7 +52,6 @@ class ArticleFragment : Fragment() {
     }
 
     private fun setupSearchView() {
-        binding.searchView.queryHint = getString(R.string.cariartikel)
         binding.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
