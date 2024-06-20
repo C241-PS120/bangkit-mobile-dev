@@ -5,11 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.coffeeprotectionandanalysissystem.R
 import com.example.coffeeprotectionandanalysissystem.adapter.ArticleAdapter
 import com.example.coffeeprotectionandanalysissystem.databinding.FragmentArticleBinding
+
 class ArticleFragment : Fragment() {
 
     private var _binding: FragmentArticleBinding? = null
@@ -22,20 +23,21 @@ class ArticleFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        articleViewModel = ViewModelProvider(this).get(ArticleViewModel::class.java)
         _binding = FragmentArticleBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         setupRecyclerView()
         setupSearchView()
-
+        setupSwipeRefreshLayout()
 
         return root
     }
 
-    override fun onResume() {
-        super.onResume()
-        loadArticles()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        articleViewModel = ViewModelProvider(this).get(ArticleViewModel::class.java)
+        observeViewModel()
+        articleViewModel.fetchArticles() // Panggil fetchArticles saat Fragment pertama kali dibuat
     }
 
     override fun onDestroyView() {
@@ -64,17 +66,31 @@ class ArticleFragment : Fragment() {
         })
     }
 
-
-    private fun loadArticles() {
-        articleViewModel.articles.observe(viewLifecycleOwner) { articles ->
-            if (articles != null) {
-                articleAdapter.setArticles(articles)
+    private fun setupSwipeRefreshLayout() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            if (!articleViewModel.isLoading.value!!) { // Pastikan tidak sedang dalam proses memuat data
+                articleViewModel.fetchArticles()
+            } else {
+                binding.swipeRefreshLayout.isRefreshing = false // Hentikan animasi swipe refresh jika sedang memuat
             }
         }
+    }
 
-        articleViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-        }
+    private fun observeViewModel() {
+        articleViewModel.articles.observe(viewLifecycleOwner, Observer { articles ->
+            articles?.let {
+                articleAdapter.setArticles(it)
+            }
+            binding.swipeRefreshLayout.isRefreshing = false // Menyembunyikan indikator swipe refresh jika sedang aktif
+            binding.progressBar.visibility = View.GONE // Menyembunyikan ProgressBar setelah data dimuat
+        })
+
+        articleViewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
+            if (isLoading) {
+                binding.progressBar.visibility = View.VISIBLE // Menampilkan ProgressBar saat sedang memuat data
+            } else {
+                binding.progressBar.visibility = View.GONE // Menyembunyikan ProgressBar setelah data dimuat
+            }
+        })
     }
 }
-

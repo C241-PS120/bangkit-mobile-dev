@@ -20,7 +20,7 @@ class HomeViewModel : ViewModel() {
                 val location = "$latitude,$longitude"
                 val response = ApiConfig.weatherService.getCurrentWeather(apiKey, location, "no")
                 _weatherResponse.postValue(response)
-                Log.d("WeatherAPI", "Weather API called succesfully")
+                Log.d("WeatherAPI", "Weather API called successfully")
             } catch (e: Exception) {
                 _weatherResponse.postValue(null)
                 Log.e("WeatherAPI", "Error calling Weather API", e)

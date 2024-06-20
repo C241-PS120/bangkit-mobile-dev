@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 class ArticleViewModel : ViewModel() {
 
     private val _articles = MutableLiveData<List<DataItem>?>()
-    val articles: MutableLiveData<List<DataItem>?> get() = _articles
+    val articles: LiveData<List<DataItem>?> get() = _articles
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
@@ -21,11 +21,7 @@ class ArticleViewModel : ViewModel() {
 
     private val apiService = ApiConfig.articleService
 
-    init {
-        fetchArticles()
-    }
-
-    private fun fetchArticles() {
+    fun fetchArticles() {
         viewModelScope.launch {
             _isLoading.value = true
             try {
@@ -40,16 +36,16 @@ class ArticleViewModel : ViewModel() {
     }
 
     fun fetchArticleById(articleId: Int) {
-    viewModelScope.launch {
-        _isLoading.value = true
-        try {
-            val response = apiService.getArticleById(articleId)
-            _article.value = response.data
-        } catch (e: Exception) {
-            e.printStackTrace()
-        } finally {
-            _isLoading.value = false
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                val response = apiService.getArticleById(articleId)
+                _article.value = response.data
+            } catch (e: Exception) {
+                e.printStackTrace()
+            } finally {
+                _isLoading.value = false
+            }
         }
     }
-}
 }
