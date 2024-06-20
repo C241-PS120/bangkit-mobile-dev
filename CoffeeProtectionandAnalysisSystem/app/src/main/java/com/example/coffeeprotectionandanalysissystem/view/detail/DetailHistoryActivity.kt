@@ -40,7 +40,7 @@ class DetailHistoryActivity : AppCompatActivity() {
         if (symptoms != null && symptoms.isNotEmpty()) {
             val spannableStringBuilder = SpannableStringBuilder()
             symptoms.forEach { symptom ->
-                spannableStringBuilder.append("$symptom\n\n")
+                spannableStringBuilder.append("• $symptom\n\n")
             }
             binding.tvSymptoms.text = spannableStringBuilder
         } else {
