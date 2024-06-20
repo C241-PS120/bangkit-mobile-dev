@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import com.bumptech.glide.request.target.Target
+import com.example.coffeeprotectionandanalysissystem.R
 
 class ResultActivity : AppCompatActivity() {
     private lateinit var binding: ActivityResultBinding
@@ -32,6 +33,11 @@ class ResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        setSupportActionBar(binding.topbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
 
         val imageUrl = intent.getStringExtra("imageUrl")
         val label = intent.getStringExtra("label")
@@ -67,6 +73,17 @@ class ResultActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@ResultActivity)
             adapter = symptomsAdapter
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     private fun loadSymptoms(symptoms: ArrayList<String>?) {
