@@ -1,6 +1,5 @@
 package com.example.coffeeprotectionandanalysissystem.adapter
 
-import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,10 +9,7 @@ import com.example.coffeeprotectionandanalysissystem.response.DataItem
 import android.widget.Filter
 import android.widget.Filterable
 import com.bumptech.glide.Glide
-import com.example.coffeeprotectionandanalysissystem.R
 import com.example.coffeeprotectionandanalysissystem.view.detail.DetailArtikelActivity
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>(), Filterable {
 

@@ -18,12 +18,17 @@
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:queryHint=" "
-            android:background="@color/transparant_1"
-            android:textColorHint="@android:color/transparent"
-            android:elevation="8dp" />
+            android:background="@drawable/searchview_backround"
+            android:elevation="8dp"
+            android:iconifiedByDefault="false"
+            android:padding="8dp"
+            android:queryHint="Enter text"
+            app:iconifiedByDefault="false"
+            app:queryBackground="@null"
+            app:queryHint="@string/cariartikel" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
 
 
     <ProgressBar

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.coffeeprotectionandanalysissystem.R
 import com.example.coffeeprotectionandanalysissystem.adapter.ArticleAdapter
 import com.example.coffeeprotectionandanalysissystem.databinding.FragmentArticleBinding
 class ArticleFragment : Fragment() {
@@ -28,10 +29,6 @@ class ArticleFragment : Fragment() {
         setupRecyclerView()
         setupSearchView()
 
-        // Get the label argument and set it to the SearchView
-        arguments?.getString("label")?.let { label ->
-            binding.searchView.setQuery(label, false)
-        }
 
         return root
     }
@@ -66,6 +63,7 @@ class ArticleFragment : Fragment() {
             }
         })
     }
+
 
     private fun loadArticles() {
         articleViewModel.articles.observe(viewLifecycleOwner) { articles ->

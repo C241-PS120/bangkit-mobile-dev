@@ -6,7 +6,7 @@
     <string name="title_history">Riwayat Scan\n</string>
     <string name="pengaturan">pengaturan</string>
     <string name="menampilkan_diagnosis">Menampilkan Diagnosis</string>
-    <string name="cara_pengobatan">Cara Pengobatan</string>
+    <string name="menampilkan_gejala">Menampilkan Gejala</string>
     <string name="scan_gambar">Scan Gambar</string>
     <string name="ambil_gambar">Ambil Gambar</string>
     <string name="search">Pencarian</string>
@@ -16,7 +16,7 @@
     <string name="artikel">Artikel</string>
     <string name="article_image">article image</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="about">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed cras ornare arcu dui vivamus arcu. Morbi tristique senectus et netus. Et magnis dis parturient montes nascetur ridiculus mus. Rutrum quisque non tellus orci ac auctor. Volutpat ac tincidunt vitae semper quis lectus. Aliquam sem fringilla ut morbi. Bibendum at varius vel pharetra vel turpis. Arcu vitae elementum curabitur vitae nunc sed velit. Convallis aenean et tortor at risus viverra. Bibendum enim facilisis gravida neque convallis. Ut sem nulla pharetra diam sit amet nisl suscipit. Dolor sit amet consectetur adipiscing. Ipsum nunc aliquet bibendum enim facilisis gravida. Velit egestas dui id ornare.</string>
+    <string name="about">COPTAS, singkatan dari Coffee Protection and Analysis System, adalah sebuah aplikasi inovatif yang dirancang untuk memprediksi penyakit pada daun kopi. Sistem ini menggunakan teknologi analisis data dan pembelajaran mesin (machine learning) untuk mengidentifikasi tanda-tanda penyakit pada daun kopi secara cepat dan akurat. Dengan menggunakan aplikasi ini, petani kopi dapat mendeteksi masalah pada tanaman mereka lebih awal, sehingga dapat mengambil tindakan pencegahan yang diperlukan untuk mencegah penyebaran penyakit dan kerugian yang lebih besar.</string>
     <string name="tentang_aplikasi">Tentang Aplikasi</string>
     <string name="gejala">Gejala:</string>
     <string name="riwayat">Riwayat Scan\n</string>
@@ -26,4 +26,5 @@
     <string name="disebabkan_oleh">Disebabkan Oleh:</string>
     <string name="chemical">Chemical :</string>
     <string name="organic">Organic   :</string>
+    <string name="cariartikel">Cari Artikel</string>
 </resources>

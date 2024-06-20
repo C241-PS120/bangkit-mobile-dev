@@ -61,7 +61,7 @@ class UploadActivity : AppCompatActivity() {
     private fun uploadImage() {
         photoUri?.let {
             val file = uriToFile(photoUri!!, this)
-            val requestFile = RequestBody.create("image/jpeg".toMediaTypeOrNull(), file)
+            val requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
             val body = MultipartBody.Part.createFormData("photo", file.name, requestFile)
 
             showLoading(true)
