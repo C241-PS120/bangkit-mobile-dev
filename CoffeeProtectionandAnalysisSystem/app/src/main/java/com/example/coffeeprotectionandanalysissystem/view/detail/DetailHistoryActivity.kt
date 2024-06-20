@@ -37,16 +37,16 @@ class DetailHistoryActivity : AppCompatActivity() {
         binding.label.text = label
         binding.suggestion.text = suggestion
 
-        // Display symptoms as a numbered list with space between each symptom
         if (symptoms != null && symptoms.isNotEmpty()) {
             val spannableStringBuilder = SpannableStringBuilder()
-            symptoms.forEachIndexed { index, symptom ->
-                spannableStringBuilder.append("${index + 1}. $symptom\n\n")
+            symptoms.forEach { symptom ->
+                spannableStringBuilder.append("$symptom\n\n")
             }
             binding.tvSymptoms.text = spannableStringBuilder
         } else {
             binding.tvSymptoms.text = "No symptoms available"
         }
+
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.topbar) { view, insets ->
             val systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())

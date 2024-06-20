@@ -35,7 +35,7 @@ class CameraActivity : AppCompatActivity() {
     private var imageCapture: ImageCapture? = null
     private var currentImageUri: Uri? = null
     private val timeStamp: String = SimpleDateFormat(
-        Companion.DATE_FORMAT,
+        DATE_FORMAT,
         Locale.US
     ).format(System.currentTimeMillis())
 
@@ -44,10 +44,10 @@ class CameraActivity : AppCompatActivity() {
             ActivityResultContracts.RequestPermission()
         ) { isGranted: Boolean ->
             if (isGranted) {
-                Toast.makeText(this, "Permission request granted", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Permission granted", Toast.LENGTH_LONG).show()
                 startCamera()
             } else {
-                Toast.makeText(this, "Permission request denied", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_LONG).show()
             }
         }
 
@@ -65,57 +65,18 @@ class CameraActivity : AppCompatActivity() {
 
         if (!allPermissionsGranted()) {
             requestPermissionLauncher.launch(REQUIRED_PERMISSION)
-        } else {
-            startCamera()
         }
 
         binding.switchCamera.setOnClickListener {
             cameraSelector =
                 if (cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) CameraSelector.DEFAULT_FRONT_CAMERA
                 else CameraSelector.DEFAULT_BACK_CAMERA
-
-            // Reset flash mode to OFF if switching to front camera
-            if (cameraSelector == CameraSelector.DEFAULT_FRONT_CAMERA) {
-                imageCapture?.flashMode = ImageCapture.FLASH_MODE_OFF
-                updateFlashButtonUI(ImageCapture.FLASH_MODE_OFF)
-            }
-
             startCamera()
         }
-
-        binding.btnClose.setOnClickListener { this.onBackPressedDispatcher.onBackPressed() }
+        binding.btnClose.setOnClickListener { onBackPressed() }
         binding.captureImage.setOnClickListener { takePhoto() }
         binding.galleryButton.setOnClickListener { startGallery() }
         binding.flashButton.setOnClickListener { toggleFlash() }
-    }
-
-    private fun toggleFlash() {
-        if (imageCapture != null) {
-            val flashMode = if (cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) {
-                // Jika menggunakan kamera belakang, toggle flash mode seperti biasa
-                if (imageCapture?.flashMode == ImageCapture.FLASH_MODE_OFF)
-                    ImageCapture.FLASH_MODE_ON
-                else
-                    ImageCapture.FLASH_MODE_OFF
-            } else {
-                // Jika menggunakan kamera depan, pastikan flash mode adalah off
-                ImageCapture.FLASH_MODE_OFF
-            }
-            imageCapture?.flashMode = flashMode
-
-            // Update UI for flash button
-            updateFlashButtonUI(flashMode)
-        } else {
-            Toast.makeText(this, "Camera not initialized yet", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun updateFlashButtonUI(flashMode: Int) {
-        val flashIcon = if (flashMode == ImageCapture.FLASH_MODE_ON)
-            R.drawable.ic_flash_on
-        else
-            R.drawable.ic_flash_off
-        binding.flashButton.setImageResource(flashIcon)
     }
 
     public override fun onResume() {
@@ -159,6 +120,7 @@ class CameraActivity : AppCompatActivity() {
         }, ContextCompat.getMainExecutor(this))
     }
 
+
     private fun takePhoto() {
         val imageCapture = imageCapture ?: return
 
@@ -171,7 +133,7 @@ class CameraActivity : AppCompatActivity() {
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     val photoUri = Uri.fromFile(photoFile)
-                    currentImageUri = photoUri  // Update the currentImageUri with the new photo URI
+                    currentImageUri = photoUri
                     startCrop(photoUri)
                 }
 
@@ -199,6 +161,23 @@ class CameraActivity : AppCompatActivity() {
             .start(this)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
+            val resultUri = UCrop.getOutput(data!!)
+            resultUri?.let {
+                val intent = Intent(this, UploadActivity::class.java).apply {
+                    putExtra(EXTRA_CAMERAX_IMAGE, it.toString())
+                }
+                startActivity(intent)
+            }
+        } else if (resultCode == UCrop.RESULT_ERROR) {
+            val cropError = UCrop.getError(data!!)
+            // Handle the error
+            Toast.makeText(this, "Cropping failed: ${cropError?.message}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun startGallery() {
         launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
@@ -214,6 +193,34 @@ class CameraActivity : AppCompatActivity() {
         }
     }
 
+    private fun toggleFlash() {
+        if (imageCapture != null) {
+            val flashMode = if (cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) {
+                // Jika menggunakan kamera belakang, toggle flash mode seperti biasa
+                if (imageCapture?.flashMode == ImageCapture.FLASH_MODE_OFF)
+                    ImageCapture.FLASH_MODE_ON
+                else
+                    ImageCapture.FLASH_MODE_OFF
+            } else {
+                // Jika menggunakan kamera depan, pastikan flash mode adalah off
+                ImageCapture.FLASH_MODE_OFF
+            }
+            imageCapture?.flashMode = flashMode
+
+            // Update UI for flash button
+            updateFlashButtonUI(flashMode)
+        } else {
+            Toast.makeText(this, "Camera not initialized yet", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun updateFlashButtonUI(flashMode: Int) {
+        val flashIcon = if (flashMode == ImageCapture.FLASH_MODE_ON)
+            R.drawable.ic_flash_on
+        else
+            R.drawable.ic_flash_off
+        binding.flashButton.setImageResource(flashIcon)
+    }
     private fun hideSystemUI() {
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -254,7 +261,7 @@ class CameraActivity : AppCompatActivity() {
         orientationEventListener.disable()
     }
 
-    fun createCustomTempFile(context: Context): File {
+    private fun createCustomTempFile(context: Context): File {
         val filesDir = context.externalCacheDir
         return File.createTempFile(timeStamp, ".jpg", filesDir)
     }

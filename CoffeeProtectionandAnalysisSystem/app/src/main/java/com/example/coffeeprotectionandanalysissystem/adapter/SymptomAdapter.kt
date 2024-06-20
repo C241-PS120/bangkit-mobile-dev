@@ -20,9 +20,9 @@ class SymptomsAdapter(private var symptoms: List<String> = emptyList()) : Recycl
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val symptom = symptoms[position]
-        // Add a number or symbol to each item
-        holder.symptomTextView.text = "${position + 1}. $symptom"
+        holder.symptomTextView.text = "• $symptom"
     }
+
 
     override fun getItemCount() = symptoms.size
 
