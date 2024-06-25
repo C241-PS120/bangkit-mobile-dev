@@ -1,5 +1,5 @@
 ## Mobile Development COPTAS
-![Image 1](C241-PS120/bangkit-mobile-dev/kotlin.png)
+![Image 1](mobiledevelopment.jpeg)
 ### FlowChart Mobile Development COPTAS
 ![Image 1](C241-PS120/bangkit-mobile-dev/kotlin.png)
 
