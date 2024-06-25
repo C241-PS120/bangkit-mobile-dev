@@ -3,8 +3,8 @@
 ### FlowChart Mobile Development COPTAS
 ![Image 1](flowchartMD.jpeg)
 
-### Tools
+### Programming Language
 ![Image 3](kotlin.png)
 
-### Programming Language
+### IDE
 ![Image 3](androidstudio.png)
