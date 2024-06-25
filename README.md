@@ -4,7 +4,7 @@
 ![Image 1](flowchartMD.jpeg)
 
 ### Tools
-<img src="https://www.svgrepo.com/svg/373728/kotlin" width="100" height="50"/>
+![Image 3](kotlin.png)
 
 ### Programming Language
 ![Image 3](androidstudio.png)
