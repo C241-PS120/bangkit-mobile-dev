@@ -1,6 +1,6 @@
 ## Mobile Development COPTAS
 ### FlowChart Mobile Development COPTAS
-![Screenshot 1](path/to/your/image1.png)
+![Screenshot 1]((images/kotlin.png)
 
 ### TOOLS
 ![Screenshot 2](path/to/your/image2.png)
